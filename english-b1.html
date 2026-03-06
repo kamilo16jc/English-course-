@@ -1,0 +1,2734 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Academy — B1 Course</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   ENGLISH ACADEMY B1 — Stylesheet
+   Theme: Light academic with gold accents, clean and readable
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --bg: #f7f5f0;
+  --white: #ffffff;
+  --ink: #1c1c2e;
+  --ink2: #3a3a52;
+  --muted: #6b6b85;
+  --border: #e0ddf5;
+  --gold: #b8860b;
+  --gold-bg: #fdf6e3;
+  --gold-border: #e8d5a3;
+  --gold-bright: #f0c060;
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --green-border: #86efac;
+  --red: #dc2626;
+  --red-bg: #fef2f2;
+  --red-border: #fca5a5;
+  --blue: #1d4ed8;
+  --blue-bg: #eff6ff;
+  --blue-border: #93c5fd;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.1);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ── HEADER ── */
+#app-header {
+  background: var(--ink);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 16px rgba(0,0,0,.3);
+}
+.header-left { display: flex; align-items: center; gap: 16px; }
+.header-right { display: flex; align-items: center; gap: 16px; }
+
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-icon { font-size: 1.3rem; }
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: #e0e0f0;
+}
+.logo-text em { color: var(--gold-bright); font-style: italic; }
+
+.xp-display, .streak-display {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .82rem;
+  font-weight: 500;
+  color: #c0c0e0;
+  background: rgba(255,255,255,.07);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+.xp-icon { color: var(--gold-bright); }
+.btn-reset {
+  background: transparent;
+  border: 1px solid #444;
+  color: #888;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: .85rem;
+  transition: all .2s;
+}
+.btn-reset:hover { color: var(--red); border-color: var(--red); }
+
+/* ── MAIN ── */
+#app-main {
+  flex: 1;
+  padding: 32px 20px 60px;
+  max-width: 820px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.screen { display: none; animation: fadeUp .3s ease; }
+.screen.active { display: block; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  border-radius: var(--radius-sm);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 600;
+  font-size: .92rem;
+  cursor: pointer;
+  border: none;
+  transition: all .18s;
+  text-decoration: none;
+}
+.btn-primary { background: var(--gold); color: #fff; }
+.btn-primary:hover { background: #9a700a; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(184,134,11,.3); }
+.btn-primary:disabled { opacity: .5; transform: none !important; box-shadow: none !important; cursor: not-allowed; }
+.btn-ghost { background: var(--white); color: var(--ink2); border: 1.5px solid var(--border); }
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+.btn-success { background: var(--green); color: #fff; }
+.btn-success:hover { background: #128a3d; }
+.btn-danger { background: var(--red); color: #fff; }
+.btn-sm { padding: 7px 16px; font-size: .82rem; }
+
+.back-btn {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--muted);
+  padding: 7px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: .82rem;
+  font-weight: 500;
+  transition: all .15s;
+}
+.back-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ── DASHBOARD ── */
+.dashboard-hero {
+  background: var(--ink);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.dashboard-hero::after {
+  content: '';
+  position: absolute;
+  top: -80px; right: -60px;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(240,192,96,.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: 3px;
+  color: var(--gold-bright);
+  margin-bottom: 14px;
+}
+.dashboard-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: #f0f0f8;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.dashboard-hero h1 em { color: var(--gold-bright); font-style: italic; }
+.dashboard-hero p { color: #8080a8; font-size: .9rem; margin-bottom: 24px; }
+
+.overall-progress-wrap { max-width: 400px; }
+.op-label { display: flex; justify-content: space-between; font-size: .78rem; color: #8080a8; margin-bottom: 8px; font-family: 'IBM Plex Mono', monospace; }
+.op-track { height: 8px; background: #2a2a4a; border-radius: 4px; overflow: hidden; }
+.op-fill { height: 100%; background: var(--gold-bright); border-radius: 4px; transition: width 1s ease; }
+
+.modules-grid { display: flex; flex-direction: column; gap: 14px; }
+
+.module-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  cursor: pointer;
+  transition: all .2s;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.module-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 5px;
+  background: var(--border);
+  transition: background .3s;
+}
+.module-card.unlocked::before { background: var(--m-color, var(--gold)); }
+.module-card.completed::before { background: var(--green); }
+.module-card.locked { opacity: .55; cursor: not-allowed; }
+.module-card.unlocked:hover { transform: translateX(4px); border-color: var(--m-color, var(--gold)); box-shadow: var(--shadow-md); }
+
+.mc-emoji { font-size: 2rem; flex-shrink: 0; width: 48px; text-align: center; }
+.mc-info { flex: 1; }
+.mc-info h3 { font-weight: 700; font-size: 1rem; color: var(--ink); margin-bottom: 3px; }
+.mc-info p { font-size: .8rem; color: var(--muted); }
+.mc-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+
+.mc-status {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+.status-locked   { background: #f0f0f8; color: var(--muted); }
+.status-unlocked { background: var(--gold-bg); color: var(--gold); border: 1px solid var(--gold-border); }
+.status-done     { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+
+.mc-quiz-score {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .72rem;
+  color: var(--muted);
+}
+
+.mc-games-row { display: flex; gap: 4px; }
+.mc-game-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.mc-game-dot.done { background: var(--green); }
+
+/* ── MODULE HOME ── */
+.module-hero {
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.mh-emoji { font-size: 3rem; margin: 12px 0 10px; }
+.module-hero h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 6px; }
+.module-hero p { font-size: .9rem; opacity: .8; margin-bottom: 16px; }
+.mh-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+.mh-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(255,255,255,.2);
+  color: inherit;
+}
+
+.activities-grid { display: flex; flex-direction: column; gap: 12px; }
+
+.activity-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all .18s;
+  box-shadow: var(--shadow-sm);
+}
+.activity-card:hover { border-color: var(--gold); transform: translateX(3px); }
+.activity-card.done { border-color: var(--green-border); background: var(--green-bg); }
+.activity-card.locked-act { opacity: .5; cursor: not-allowed; }
+
+.act-icon { font-size: 1.6rem; flex-shrink: 0; }
+.act-info { flex: 1; }
+.act-info h4 { font-weight: 700; font-size: .95rem; margin-bottom: 2px; }
+.act-info p { font-size: .78rem; color: var(--muted); }
+.act-check { font-size: 1.2rem; }
+.act-arrow { color: var(--muted); font-size: .85rem; }
+
+.quiz-activity-card {
+  background: var(--ink);
+  color: #fff;
+  border-color: transparent;
+}
+.quiz-activity-card:hover { background: #2a2a4a; border-color: var(--gold-bright); }
+.quiz-activity-card .act-info h4 { color: var(--gold-bright); }
+.quiz-activity-card .act-info p { color: #8080a8; }
+.quiz-activity-card.done { background: var(--green); border-color: transparent; }
+.quiz-activity-card.done .act-info h4 { color: #fff; }
+.quiz-activity-card.needs-retry { background: #3a1a1a; border-color: var(--red-border); }
+.quiz-activity-card.needs-retry .act-info h4 { color: #fca5a5; }
+
+/* ── LESSON ── */
+.lesson-topbar {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.lesson-title-wrap { flex: 1; }
+.lesson-title-wrap span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+#lesson-title-h { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
+
+.lesson-section {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.lesson-section h3 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.lesson-intro {
+  font-size: .95rem;
+  line-height: 1.8;
+  color: var(--ink2);
+  margin-bottom: 20px;
+}
+.lesson-intro strong { color: var(--ink); }
+
+.lesson-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+}
+.lesson-table th {
+  background: var(--bg);
+  text-align: left;
+  padding: 10px 14px;
+  font-weight: 700;
+  font-size: .75rem;
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--border);
+}
+.lesson-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.6;
+  color: var(--ink2);
+}
+.lesson-table tr:last-child td { border-bottom: none; }
+.lesson-table tr:hover td { background: var(--bg); }
+.lesson-table td:first-child { font-weight: 700; color: var(--ink); white-space: nowrap; }
+
+.lesson-done-wrap { text-align: center; padding: 24px 0 8px; }
+
+/* ── GAME TOPBAR ── */
+.game-topbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.game-title {
+  flex: 1;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.game-counter {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .78rem;
+  color: var(--muted);
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* ── FLASHCARDS ── */
+.fc-wrap { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+
+.fc-card {
+  width: 100%;
+  max-width: 500px;
+  height: 280px;
+  cursor: pointer;
+  perspective: 1000px;
+}
+.fc-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .5s cubic-bezier(.4,0,.2,1);
+}
+.fc-inner.flipped { transform: rotateY(180deg); }
+.fc-front, .fc-back {
+  position: absolute;
+  inset: 0;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  text-align: center;
+  backface-visibility: hidden;
+  box-shadow: var(--shadow-md);
+}
+.fc-back { transform: rotateY(180deg); background: var(--gold-bg); border-color: var(--gold-border); }
+.fc-front-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.fc-word {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.fc-back-text {
+  font-size: .9rem;
+  color: var(--ink2);
+  line-height: 1.8;
+  white-space: pre-line;
+}
+.fc-hint-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.fc-flip-hint {
+  font-size: .72rem;
+  color: var(--muted);
+  margin-top: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.fc-tip {
+  font-size: .82rem;
+  color: var(--muted);
+  text-align: center;
+  max-width: 420px;
+  font-style: italic;
+  min-height: 20px;
+}
+.fc-nav { display: flex; gap: 12px; }
+.fc-progress { display: flex; gap: 5px; }
+.fc-progress-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); transition: background .3s; }
+.fc-progress-dot.seen { background: var(--gold); }
+.fc-progress-dot.current { background: var(--blue); }
+
+/* ── WORD SCRAMBLE ── */
+.ws-wrap { display: flex; flex-direction: column; gap: 20px; }
+.ws-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+}
+.ws-hint {
+  font-size: .88rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+  font-style: italic;
+  text-align: center;
+}
+.ws-letters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.ws-letter {
+  width: 40px; height: 40px;
+  background: var(--ink);
+  color: var(--gold-bright);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.ws-input-row { display: flex; gap: 10px; margin-bottom: 14px; }
+.ws-input {
+  flex: 1;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1rem;
+  color: var(--ink);
+  outline: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: border-color .2s;
+}
+.ws-input:focus { border-color: var(--gold); }
+.ws-feedback { font-size: .88rem; font-weight: 600; text-align: center; min-height: 22px; }
+.ws-feedback.correct { color: var(--green); }
+.ws-feedback.wrong   { color: var(--red); }
+.ws-nav { text-align: right; }
+.ws-score-row { font-size: .85rem; color: var(--muted); text-align: center; font-family: 'IBM Plex Mono', monospace; }
+.ws-score-row strong { color: var(--ink); }
+
+/* ── FILL THE GAP ── */
+.fg-wrap { display: flex; flex-direction: column; gap: 16px; }
+.fg-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+}
+.fg-sentence {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.8;
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.fg-blank { color: var(--blue); font-weight: 700; }
+.fg-word-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.fg-word-btn {
+  background: var(--ink);
+  color: var(--gold-bright);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .85rem;
+  cursor: pointer;
+  transition: all .15s;
+}
+.fg-word-btn:hover { background: #2a2a4a; transform: translateY(-1px); }
+.fg-word-btn.used { opacity: .3; cursor: not-allowed; }
+
+.fg-answer-zone {
+  min-height: 50px;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 14px;
+  transition: border-color .2s;
+}
+.fg-answer-zone:has(.fg-placed-word) { border-color: var(--gold); }
+.fg-answer-placeholder { font-size: .82rem; color: var(--muted); font-style: italic; }
+.fg-placed-word {
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .85rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+.fg-placed-word:hover { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+
+.fg-actions { display: flex; justify-content: space-between; align-items: center; }
+.fg-feedback { font-size: .88rem; font-weight: 600; margin-top: 12px; min-height: 22px; }
+.fg-feedback.correct { color: var(--green); }
+.fg-feedback.wrong   { color: var(--red); }
+.fg-score-row { font-size: .85rem; color: var(--muted); text-align: center; font-family: 'IBM Plex Mono', monospace; }
+.fg-score-row strong { color: var(--ink); }
+
+/* ── SPEED QUIZ ── */
+.speed-timer-wrap { display: flex; align-items: center; gap: 8px; }
+.speed-timer-bar {
+  width: 100px; height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.speed-timer-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--green);
+  transition: width .1s linear, background .3s;
+}
+.speed-timer-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .82rem;
+  color: var(--muted);
+  min-width: 24px;
+}
+
+.sq-wrap { display: flex; flex-direction: column; gap: 16px; }
+.sq-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+}
+.sq-qnum {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .72rem;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.sq-question {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+.sq-options { display: flex; flex-direction: column; gap: 10px; }
+.sq-opt {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all .12s;
+  font-size: .92rem;
+  color: var(--ink2);
+  font-weight: 500;
+  text-align: left;
+  width: 100%;
+}
+.sq-opt:hover { border-color: var(--gold); background: var(--gold-bg); }
+.sq-opt.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); }
+.sq-opt.wrong   { border-color: var(--red);   background: var(--red-bg);   color: var(--red); }
+.sq-opt-ltr {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  background: var(--border);
+  color: var(--muted);
+  padding: 3px 8px;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+.sq-opt.correct .sq-opt-ltr { background: var(--green); color: #fff; }
+.sq-opt.wrong   .sq-opt-ltr { background: var(--red);   color: #fff; }
+.sq-feedback { font-size: .85rem; font-weight: 600; margin-top: 14px; min-height: 22px; }
+.sq-feedback.correct { color: var(--green); }
+.sq-feedback.wrong   { color: var(--red); }
+.sq-score-row { font-size: .85rem; color: var(--muted); text-align: center; font-family: 'IBM Plex Mono', monospace; }
+.sq-score-row strong { color: var(--ink); }
+
+/* ── LISTENING ── */
+.ls-wrap { display: flex; flex-direction: column; gap: 16px; }
+.ls-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+}
+.ls-player {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--ink);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 22px;
+}
+.ls-play-btn {
+  background: var(--gold-bright);
+  color: var(--ink);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: .88rem;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.ls-play-btn:hover { background: #d4a840; }
+.ls-play-btn.playing { background: var(--red); color: #fff; }
+.ls-label { font-size: .8rem; color: #8080a8; font-family: 'IBM Plex Mono', monospace; }
+.ls-question { font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 18px; line-height: 1.6; }
+.ls-options { display: flex; flex-direction: column; gap: 10px; }
+.ls-opt {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all .12s;
+  font-size: .92rem;
+  color: var(--ink2);
+  font-weight: 500;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ls-opt:hover { border-color: var(--blue); background: var(--blue-bg); }
+.ls-opt.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); }
+.ls-opt.wrong   { border-color: var(--red);   background: var(--red-bg);   color: var(--red); }
+.ls-opt-ltr { font-family: 'IBM Plex Mono', monospace; font-size: .7rem; background: var(--border); color: var(--muted); padding: 3px 8px; border-radius: 5px; flex-shrink: 0; }
+.ls-opt.correct .ls-opt-ltr { background: var(--green); color: #fff; }
+.ls-opt.wrong   .ls-opt-ltr { background: var(--red);   color: #fff; }
+.ls-feedback { font-size: .85rem; font-weight: 600; margin-top: 14px; min-height: 22px; }
+.ls-feedback.correct { color: var(--green); }
+.ls-feedback.wrong   { color: var(--red); }
+.ls-score-row { font-size: .85rem; color: var(--muted); text-align: center; font-family: 'IBM Plex Mono', monospace; }
+.ls-score-row strong { color: var(--ink); }
+
+/* ── QUIZ ── */
+.quiz-topbar {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.quiz-title-wrap { flex: 1; }
+.quiz-title { font-weight: 700; font-size: 1rem; color: var(--ink); }
+.quiz-subtitle { font-size: .78rem; color: var(--muted); }
+.quiz-progress-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .78rem;
+  color: var(--muted);
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+.quiz-progress-bar-wrap {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.quiz-progress-bar {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 3px;
+  transition: width .4s ease;
+  width: 0%;
+}
+
+.quiz-wrap { display: flex; flex-direction: column; gap: 16px; }
+.quiz-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  animation: fadeUp .25s ease;
+}
+.quiz-qnum {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .72rem;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.quiz-question {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 10px; }
+.quiz-opt {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 13px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all .12s;
+  font-size: .92rem;
+  color: var(--ink2);
+  font-weight: 500;
+  text-align: left;
+  width: 100%;
+}
+.quiz-opt:hover { border-color: var(--gold); background: var(--gold-bg); }
+.quiz-opt.selected { border-color: var(--blue); background: var(--blue-bg); }
+.quiz-opt.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); }
+.quiz-opt.wrong   { border-color: var(--red);   background: var(--red-bg);   color: var(--red); }
+.quiz-opt-ltr {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  background: var(--border);
+  color: var(--muted);
+  padding: 3px 8px;
+  border-radius: 5px;
+  flex-shrink: 0;
+  min-width: 26px;
+  text-align: center;
+  transition: all .12s;
+}
+.quiz-opt.selected .quiz-opt-ltr { background: var(--blue); color: #fff; }
+.quiz-opt.correct .quiz-opt-ltr  { background: var(--green); color: #fff; }
+.quiz-opt.wrong .quiz-opt-ltr    { background: var(--red); color: #fff; }
+.quiz-nav { display: flex; justify-content: flex-end; }
+
+/* ── QUIZ RESULT ── */
+.qr-wrap { max-width: 680px; margin: 0 auto; }
+.qr-hero {
+  background: var(--ink);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.qr-emoji { font-size: 3.5rem; margin-bottom: 16px; }
+.qr-score {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--gold-bright);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.qr-pct {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.2rem;
+  color: #c0c0e0;
+  margin-bottom: 10px;
+}
+.qr-label {
+  font-size: .9rem;
+  color: #8080a8;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.qr-hero.passed .qr-score { color: #4ade80; }
+.qr-hero.passed .qr-pct   { color: #86efac; }
+
+.qr-ai-box {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.qr-ai-header { display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+.qr-ai-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--ink); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.qr-ai-title { font-weight: 700; font-size: .95rem; }
+.qr-ai-sub { font-size: .7rem; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+#qr-ai-text { font-size: .92rem; line-height: 1.85; color: var(--ink2); white-space: pre-wrap; }
+
+.qr-review {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.qr-review h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.qr-review-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: .88rem;
+}
+.qr-review-item:last-child { border-bottom: none; }
+.qri-header { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
+.qri-num { font-family: 'IBM Plex Mono', monospace; font-size: .7rem; color: var(--muted); flex-shrink: 0; min-width: 24px; padding-top: 2px; }
+.qri-q { font-weight: 600; color: var(--ink); flex: 1; line-height: 1.5; }
+.qri-badge { font-size: .7rem; padding: 3px 9px; border-radius: 20px; font-weight: 700; flex-shrink: 0; }
+.qri-badge.ok   { background: var(--green-bg); color: var(--green); }
+.qri-badge.fail { background: var(--red-bg);   color: var(--red); }
+.qri-answers { display: flex; flex-direction: column; gap: 6px; margin-left: 34px; }
+.qri-row { display: flex; align-items: flex-start; gap: 8px; font-size: .82rem; }
+.qri-lbl { font-family: 'IBM Plex Mono', monospace; font-size: .65rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0; }
+.lbl-you { background: #e8e8f8; color: var(--ink2); }
+.lbl-ok  { background: var(--green-bg); color: var(--green); }
+.qri-val { color: var(--ink2); }
+.qri-val.ok  { color: var(--green); font-weight: 600; }
+.qri-val.bad { color: var(--red); text-decoration: line-through; }
+
+.qr-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink);
+  color: var(--gold-bright);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .82rem;
+  padding: 10px 20px;
+  border-radius: 20px;
+  opacity: 0;
+  transition: all .3s;
+  pointer-events: none;
+  z-index: 999;
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  #app-main { padding: 20px 14px 50px; }
+  .dashboard-hero { padding: 28px 22px; }
+  .lesson-section { padding: 20px 16px; }
+  .quiz-card, .sq-card, .ls-card, .fg-card, .ws-card { padding: 20px 16px; }
+  .fc-card { height: 240px; }
+  .lesson-table { font-size: .8rem; }
+  .lesson-table th, .lesson-table td { padding: 8px 10px; }
+  .qr-hero { padding: 28px 20px; }
+  .speed-timer-bar { width: 60px; }
+}
+</style>
+</head>
+<body>
+<header id="app-header">
+  <div class="header-left">
+    <div class="logo">
+      <span class="logo-icon">📖</span>
+      <span class="logo-text">English <em>Academy</em></span>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="xp-display" id="xp-display">
+      <span class="xp-icon">⚡</span>
+      <span id="total-xp">0</span> XP
+    </div>
+    <div class="streak-display" id="streak-display">
+      <span>🔥</span>
+      <span id="streak-count">0</span>
+    </div>
+    <button class="btn-reset" onclick="confirmReset()" title="Reset progress">↺</button>
+  </div>
+</header>
+<main id="app-main">
+  <div class="screen active" id="screen-dashboard">
+    <div class="dashboard-hero">
+      <div class="hero-badge">CEFR · B1 LEVEL</div>
+      <h1>Your English<br><em>B1 Journey</em></h1>
+      <p>6 módulos · 4 juegos cada uno · Quiz con 80% para avanzar</p>
+      <div class="overall-progress-wrap">
+        <div class="op-label"><span>Progreso general</span><span id="op-pct">0%</span></div>
+        <div class="op-track"><div class="op-fill" id="op-fill"></div></div>
+      </div>
+    </div>
+    <div class="modules-grid" id="modules-grid"></div>
+  </div>
+  <div class="screen" id="screen-module">
+    <div class="module-hero" id="module-hero">
+      <button class="back-btn" onclick="goToDashboard()">← Back</button>
+      <div class="mh-emoji" id="mh-emoji"></div>
+      <h2 id="mh-title"></h2>
+      <p id="mh-subtitle"></p>
+      <div class="mh-badges" id="mh-badges"></div>
+    </div>
+    <div class="activities-grid" id="activities-grid"></div>
+  </div>
+  <div class="screen" id="screen-lesson">
+    <div class="lesson-topbar">
+      <button class="back-btn" onclick="goToModule()">← Module</button>
+      <div class="lesson-title-wrap">
+        <span id="lesson-module-tag"></span>
+        <h3 id="lesson-title-h">Lesson</h3>
+      </div>
+    </div>
+    <div id="lesson-content"></div>
+    <div class="lesson-done-wrap">
+      <button class="btn btn-primary" onclick="completedLesson()">I've read this — Continue →</button>
+    </div>
+  </div>
+  <div class="screen" id="screen-flashcards">
+    <div class="game-topbar">
+      <button class="back-btn" onclick="goToModule()">← Module</button>
+      <div class="game-title">🃏 Flashcards</div>
+      <div class="game-counter" id="fc-counter">1 / 8</div>
+    </div>
+    <div class="fc-wrap">
+      <div class="fc-card" id="fc-card" onclick="flipCard()">
+        <div class="fc-inner" id="fc-inner">
+          <div class="fc-front" id="fc-front"></div>
+          <div class="fc-back" id="fc-back"></div>
+        </div>
+      </div>
+      <div class="fc-tip" id="fc-tip"></div>
+      <div class="fc-nav">
+        <button class="btn btn-ghost" id="fc-prev" onclick="fcPrev()">← Prev</button>
+        <button class="btn btn-primary" id="fc-next" onclick="fcNext()">Next →</button>
+      </div>
+      <div class="fc-progress" id="fc-progress"></div>
+    </div>
+  </div>
+  <div class="screen" id="screen-scramble">
+    <div class="game-topbar">
+      <button class="back-btn" onclick="goToModule()">← Module</button>
+      <div class="game-title">🔤 Word Scramble</div>
+      <div class="game-counter" id="ws-counter">1 / 6</div>
+    </div>
+    <div class="ws-wrap">
+      <div class="ws-card">
+        <div class="ws-hint" id="ws-hint"></div>
+        <div class="ws-letters" id="ws-letters"></div>
+        <div class="ws-input-row">
+          <input class="ws-input" id="ws-input" type="text" placeholder="Type the word..." autocomplete="off">
+          <button class="btn btn-primary" onclick="wsCheck()">Check ✓</button>
+        </div>
+        <div class="ws-feedback" id="ws-feedback"></div>
+      </div>
+      <div class="ws-nav"><button class="btn btn-ghost" onclick="wsSkip()">Skip →</button></div>
+      <div class="ws-score-row">Score: <strong id="ws-score">0</strong> / <span id="ws-total">6</span></div>
+    </div>
+  </div>
+  <div class="screen" id="screen-fillgap">
+    <div class="game-topbar">
+      <button class="back-btn" onclick="goToModule()">← Module</button>
+      <div class="game-title">🎯 Fill the Gap</div>
+      <div class="game-counter" id="fg-counter">1 / 6</div>
+    </div>
+    <div class="fg-wrap">
+      <div class="fg-card">
+        <div class="fg-sentence" id="fg-sentence"></div>
+        <div class="fg-word-bank" id="fg-word-bank"></div>
+        <div class="fg-answer-zone" id="fg-answer-zone"><div class="fg-answer-placeholder">Tap words above to build your answer</div></div>
+        <div class="fg-actions">
+          <button class="btn btn-ghost btn-sm" onclick="fgClear()">Clear ✕</button>
+          <button class="btn btn-primary" onclick="fgCheck()">Check ✓</button>
+        </div>
+        <div class="fg-feedback" id="fg-feedback"></div>
+      </div>
+      <div class="fg-score-row">Score: <strong id="fg-score">0</strong> / <span id="fg-total">6</span></div>
+    </div>
+  </div>
+  <div class="screen" id="screen-speedquiz">
+    <div class="game-topbar">
+      <button class="back-btn" onclick="goToModule()">← Module</button>
+      <div class="game-title">⚡ Speed Quiz</div>
+      <div class="speed-timer-wrap">
+        <div class="speed-timer-bar" id="sq-timer-bar"></div>
+        <div class="speed-timer-text" id="sq-timer-text">10</div>
+      </div>
+    </div>
+    <div class="sq-wrap">
+      <div class="sq-card">
+        <div class="sq-qnum" id="sq-qnum">Question 1 of 8</div>
+        <div class="sq-question" id="sq-question"></div>
+        <div class="sq-options" id="sq-options"></div>
+        <div class="sq-feedback" id="sq-feedback"></div>
+      </div>
+      <div class="sq-score-row">Score: <strong id="sq-score">0</strong> / <span id="sq-total">8</span></div>
+    </div>
+  </div>
+  <div class="screen" id="screen-listening">
+    <div class="game-topbar">
+      <button class="back-btn" onclick="goToModule()">← Module</button>
+      <div class="game-title">🎧 Listening</div>
+      <div class="game-counter" id="ls-counter">1 / 3</div>
+    </div>
+    <div class="ls-wrap">
+      <div class="ls-card">
+        <div class="ls-player">
+          <button class="ls-play-btn" id="ls-play-btn" onclick="lsPlay()">▶ Play</button>
+          <div class="ls-label">Tap Play to hear the audio</div>
+        </div>
+        <div class="ls-question" id="ls-question"></div>
+        <div class="ls-options" id="ls-options"></div>
+        <div class="ls-feedback" id="ls-feedback"></div>
+      </div>
+      <div class="ls-score-row">Score: <strong id="ls-score">0</strong> / <span id="ls-total">3</span></div>
+    </div>
+  </div>
+  <div class="screen" id="screen-quiz">
+    <div class="quiz-topbar">
+      <button class="back-btn" onclick="goToModule()">← Module</button>
+      <div class="quiz-title-wrap">
+        <div class="quiz-title">📝 Module Quiz</div>
+        <div class="quiz-subtitle">Necesitas 80% para desbloquear el siguiente módulo</div>
+      </div>
+      <div class="quiz-progress-text" id="quiz-progress-text">1 / 10</div>
+    </div>
+    <div class="quiz-progress-bar-wrap">
+      <div class="quiz-progress-bar" id="quiz-progress-bar"></div>
+    </div>
+    <div class="quiz-wrap">
+      <div class="quiz-card" id="quiz-card">
+        <div class="quiz-qnum" id="quiz-qnum">Question 1</div>
+        <div class="quiz-question" id="quiz-question"></div>
+        <div class="quiz-options" id="quiz-options"></div>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn btn-primary" id="quiz-next-btn" onclick="quizNext()" disabled>Next →</button>
+      </div>
+    </div>
+  </div>
+  <div class="screen" id="screen-quiz-result">
+    <div class="qr-wrap">
+      <div class="qr-hero" id="qr-hero">
+        <div class="qr-emoji" id="qr-emoji">🎉</div>
+        <div class="qr-score" id="qr-score">0/10</div>
+        <div class="qr-pct" id="qr-pct">0%</div>
+        <div class="qr-label" id="qr-label">Keep trying!</div>
+      </div>
+      <div class="qr-ai-box">
+        <div class="qr-ai-header">
+          <div class="qr-ai-avatar">🤖</div>
+          <div><div class="qr-ai-title">AI Tutor Feedback</div><div class="qr-ai-sub">Análisis personalizado</div></div>
+        </div>
+        <div id="qr-ai-text">Analizando...</div>
+      </div>
+      <div class="qr-review" id="qr-review"></div>
+      <div class="qr-actions" id="qr-actions"></div>
+    </div>
+  </div>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  ENGLISH ACADEMY B1 — Course Data
+// ═══════════════════════════════════════════════════════════════
+
+const MODULES = [
+  // ─────────────────────────────────────────────────────────────
+  // MODULE 0 — Bridge A2→B1
+  // ─────────────────────────────────────────────────────────────
+  {
+    id: 0,
+    emoji: '🌉',
+    title: 'Bridge A2 → B1',
+    subtitle: 'Word Formation & Key Expressions',
+    color: '#7c3aed',
+    colorLight: '#f5f3ff',
+    colorBorder: '#c4b5fd',
+    listening: false,
+    lesson: {
+      sections: [
+        {
+          title: 'Word Formation — Suffixes',
+          content: `In English, we can build new words by adding suffixes. This is called <strong>word formation</strong>. Learning suffixes helps you understand and create thousands of new words.`,
+          table: {
+            headers: ['Suffix', 'Meaning', 'Example (verb/adj → noun)', 'Pronunciation guide'],
+            rows: [
+              ['-er / -or', 'person who does', 'teach → teacher, communicate → communicator', '"tee-cher" / "kuh-MYOO-ni-kay-tor"'],
+              ['-tion / -sion', 'action or result', 'communicate → communication, decide → decision', '"kuh-myoo-ni-KAY-shun"'],
+              ['-ness', 'state or quality', 'happy → happiness, dark → darkness', '"HAP-ee-nes"'],
+              ['-ful', 'full of', 'hope → hopeful, use → useful', '"YOOS-ful"'],
+              ['-less', 'without', 'hope → hopeless, use → useless', '"YOOS-les"'],
+              ['-ment', 'result of action', 'develop → development, agree → agreement', '"di-VEL-up-ment"'],
+              ['-ity / -ty', 'quality or state', 'active → activity, real → reality', '"ak-TIV-i-tee"'],
+            ]
+          }
+        },
+        {
+          title: 'Common Expressions & Collocations',
+          content: `A <strong>collocation</strong> is a pair or group of words that naturally go together in English. Native speakers use them automatically — learning them makes you sound much more natural.`,
+          table: {
+            headers: ['Expression', 'Meaning', 'Example sentence', 'Pronunciation'],
+            rows: [
+              ['run out of', 'have no more of something', 'We ran out of milk this morning.', '"run OWT uv"'],
+              ['make a decision', 'decide something', 'I need to make a decision soon.', '"mayk uh di-SI-zhun"'],
+              ['take advantage of', 'use an opportunity', 'Take advantage of this offer!', '"tayk ad-VAN-tij uv"'],
+              ['come up with', 'think of an idea', 'She came up with a great plan.', '"kum UP with"'],
+              ['get rid of', 'remove or eliminate', 'I want to get rid of this old phone.', '"get RID uv"'],
+              ['keep in touch', 'stay in contact', 'Let\'s keep in touch after the trip.', '"keep in TUCH"'],
+              ['look forward to', 'be excited about future event', 'I look forward to seeing you.', '"luk FOR-werd too"'],
+            ]
+          }
+        }
+      ]
+    },
+    flashcards: [
+      { front: 'communicate', back: 'communicator / communication\n\n"kuh-MYOO-ni-kayt-or"', tip: 'Add -or for the person, -tion for the action' },
+      { front: 'develop', back: 'developer / development\n\n"di-VEL-up-er"', tip: 'Common in tech and business contexts' },
+      { front: 'run out of', back: 'To have no more of something\n\n"We ran out of coffee."\n\n"run OWT uv"', tip: 'Always followed by a noun' },
+      { front: 'hopeful', back: 'Full of hope (adjective)\n\n"HOPE-ful"\n\nOpposite: hopeless', tip: '-ful = full of, -less = without' },
+      { front: 'make a decision', back: 'To decide something\n\n"mayk uh di-SI-zhun"\n\nNOT: "do a decision"', tip: 'Always use MAKE, never DO' },
+      { front: 'keep in touch', back: 'To stay in contact with someone\n\n"keep in TUCH"\n\n"Let\'s keep in touch!"', tip: 'Very common in farewells' },
+      { front: 'reality', back: 'From: real + -ity\n\n"ree-AL-i-tee"\n\nMeaning: the state of being real', tip: '-ity / -ty turns adjectives into nouns' },
+      { front: 'look forward to', back: 'To be excited about something in the future\n\n"I look forward to meeting you."\n\nNote: followed by -ing verb!', tip: 'ALWAYS: look forward to + verb-ing' },
+    ],
+    scrambleWords: [
+      { word: 'COMMUNICATOR', hint: 'Person who communicates', clue: 'C_M_U_I_A_O_' },
+      { word: 'DEVELOPMENT', hint: 'The result of developing something', clue: 'D_V_L_P_E_T' },
+      { word: 'HAPPINESS', hint: 'The state of being happy', clue: 'H_P_I_E_S' },
+      { word: 'DECISION', hint: 'The result of deciding', clue: 'D_C_S_O_' },
+      { word: 'HOPELESS', hint: 'Without hope', clue: 'H_P_L_S_' },
+      { word: 'ACTIVITY', hint: 'From the adjective "active"', clue: 'A_T_V_T_' },
+    ],
+    fillGap: [
+      { sentence: 'We completely ___ ___ ___ coffee, so I had to go to the store.', answer: 'ran out of', words: ['ran', 'out', 'of', 'used', 'made', 'got'] },
+      { sentence: 'She is a great ___. She always explains things clearly.', answer: 'communicator', words: ['communicator', 'communication', 'communicate', 'teacher'] },
+      { sentence: 'I need to ___ a ___ about my career soon.', answer: 'make a decision', words: ['make', 'a', 'do', 'decision', 'choose', 'an'] },
+      { sentence: 'Let\'s ___ ___ ___ after the conference ends.', answer: 'keep in touch', words: ['keep', 'in', 'touch', 'stay', 'contact', 'with'] },
+      { sentence: 'The project\'s ___ took three years of hard work.', answer: 'development', words: ['development', 'developer', 'develop', 'developing'] },
+      { sentence: 'I really ___ ___ ___ visiting you next month!', answer: 'look forward to', words: ['look', 'forward', 'to', 'wait', 'excited', 'about'] },
+    ],
+    speedQuiz: [
+      { q: 'What suffix means "person who does"?', opts: ['-ness', '-er/-or', '-tion', '-ful'], correct: 1 },
+      { q: '"The store is ___ of bread." Which word fits?', opts: ['empty', 'out', 'full', 'away'], correct: 1 },
+      { q: 'What is the noun form of "happy"?', opts: ['happier', 'happily', 'happiness', 'happiest'], correct: 2 },
+      { q: '"Look forward to" is always followed by...', opts: ['a noun only', 'verb + -ing', 'an adjective', 'will + verb'], correct: 1 },
+      { q: 'Which collocation is CORRECT?', opts: ['do a decision', 'make a decision', 'take a decision', 'get a decision'], correct: 1 },
+      { q: 'What does "come up with" mean?', opts: ['arrive late', 'think of an idea', 'climb something', 'finish a task'], correct: 1 },
+      { q: '"Use + -less" gives you...', opts: ['useful', 'useless', 'useness', 'user'], correct: 1 },
+      { q: 'What is the noun form of "communicate"?', opts: ['communicating', 'communicator', 'communicateful', 'communicateness'], correct: 1 },
+    ],
+    quiz: [
+      { q: 'Choose the correct word form: "The ___ of the new app took six months."', opts: ['developer', 'develop', 'development', 'developing'], correct: 2 },
+      { q: '"We ___ ___ ___ sugar. Can you buy some?" — Fill in.', opts: ['used all the', 'ran out of', 'got empty of', 'finished with'], correct: 1 },
+      { q: 'Which suffix turns an adjective into a noun meaning "quality"?', opts: ['-er', '-ful', '-less', '-ity'], correct: 3 },
+      { q: '"I ___ ___ ___ hearing your presentation." — Complete.', opts: ['wait excited for', 'look forward to', 'am looking for', 'hope to see'], correct: 1 },
+      { q: 'What is the correct noun for "hope + (without)"?', opts: ['hopeful', 'hopeness', 'hopeless', 'unhope'], correct: 2 },
+      { q: 'She ___ ___ a brilliant solution to the problem.', opts: ['came up with', 'got up with', 'ran up with', 'took up with'], correct: 0 },
+      { q: '"Agree" → The noun is...', opts: ['agreeful', 'agreer', 'agreement', 'agreeness'], correct: 2 },
+      { q: 'Which is the correct collocation?', opts: ['do advantage of', 'take advantage of', 'make advantage of', 'get advantage of'], correct: 1 },
+      { q: 'Add a suffix to "dark" to mean "the quality of being dark".', opts: ['darken', 'darkful', 'darkness', 'darkless'], correct: 2 },
+      { q: '"___ in touch" — which verb completes this expression?', opts: ['stay', 'keep', 'hold', 'Both A and B are correct'], correct: 3 },
+    ]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // MODULE 1 — Tenses & Time
+  // ─────────────────────────────────────────────────────────────
+  {
+    id: 1,
+    emoji: '⏰',
+    title: 'Tenses & Time',
+    subtitle: 'Past Perfect, Present Perfect vs Simple Past, Future',
+    color: '#0d9488',
+    colorLight: '#f0fdfa',
+    colorBorder: '#99f6e4',
+    listening: true,
+    lesson: {
+      sections: [
+        {
+          title: 'Present Perfect vs Simple Past',
+          content: `This is one of the most important — and most confused — grammar points in English. The key is <strong>time connection to the present</strong>.`,
+          table: {
+            headers: ['Tense', 'When to use', 'Signal words', 'Example'],
+            rows: [
+              ['Present Perfect\n(have/has + past participle)', 'Action connected to NOW; experience without specific time', 'already, yet, ever, never, just, recently, for, since', '"I have visited Paris." (= experience I have now)\n"I have just eaten." (= very recent)'],
+              ['Simple Past\n(verb + -ed or irregular)', 'Completed action at a SPECIFIC time in the past', 'yesterday, last week, in 2020, ago, when', '"I visited Paris in 2019." (= specific time)\n"I ate at 8pm." (= specific time)'],
+            ]
+          }
+        },
+        {
+          title: 'Past Perfect',
+          content: `The <strong>Past Perfect</strong> (had + past participle) is used when you talk about TWO past events, and you want to show which one happened FIRST.`,
+          table: {
+            headers: ['Structure', 'Use', 'Example', 'Pronunciation tip'],
+            rows: [
+              ['had + past participle', 'The event that happened FIRST in the past', '"When I arrived, she had already left."\n(She left FIRST, then I arrived)', '"had" is often contracted: "she\'d left" → "sheed left"'],
+              ['Negative: hadn\'t + past participle', 'First event did NOT happen before second', '"I hadn\'t eaten, so I was very hungry."', '"hadn\'t" → "HAD-unt"'],
+            ]
+          }
+        },
+        {
+          title: 'Future Forms',
+          content: `English has several ways to talk about the future. Each one has a different meaning and use.`,
+          table: {
+            headers: ['Form', 'Use', 'Example', 'Pronunciation'],
+            rows: [
+              ['will + verb', 'Spontaneous decisions, predictions, promises', '"I will help you." / "It will rain tomorrow."', '"I\'ll help you" → "ile HELP yoo"'],
+              ['be going to + verb', 'Plans already decided, evidence-based predictions', '"I\'m going to study medicine." / "Look at those clouds — it\'s going to rain."', '"gonna" in informal speech'],
+              ['Present Continuous', 'Fixed arrangements in the near future', '"I\'m meeting Sarah at 6pm."', 'Same as regular present continuous'],
+            ]
+          }
+        }
+      ]
+    },
+    flashcards: [
+      { front: 'Present Perfect', back: 'have/has + past participle\n\n"I have seen that movie."\n\nUse: experience or recent past connected to NOW', tip: 'Never use with specific past times!' },
+      { front: 'Simple Past', back: 'verb + -ed (or irregular form)\n\n"I saw that movie last night."\n\nUse: specific completed past action', tip: 'Always used with specific time: yesterday, in 2020, ago...' },
+      { front: 'Past Perfect', back: 'had + past participle\n\n"She had left before I arrived."\n\nUse: the EARLIER of two past actions', tip: 'Think of it as "past of the past"' },
+      { front: 'will', back: 'For spontaneous decisions & predictions\n\n"I\'ll call you tomorrow."\n"It will be cold tonight."\n\nPronounce: "ill" when contracted', tip: 'Use WILL for decisions made at the moment of speaking' },
+      { front: 'be going to', back: 'For planned intentions & evidence predictions\n\n"I\'m going to travel to Japan next year."\n\nInformal: "gonna"', tip: 'Use GOING TO for plans you already decided' },
+      { front: 'already / yet', back: 'already = before expected time (✅ done)\nyet = expected but not done (❌ not done)\n\n"I\'ve already finished." / "I haven\'t finished yet."', tip: 'Yet goes at the END of the sentence' },
+      { front: 'for vs since', back: 'for = duration of time\nsince = starting point\n\n"I have lived here for 3 years."\n"I have lived here since 2021."', tip: 'FOR + period. SINCE + specific time.' },
+      { front: 'ever / never', back: 'ever = at any time (questions)\nnever = at no time\n\n"Have you ever visited Rome?"\n"I have never eaten sushi."', tip: 'EVER in questions, NEVER in negatives' },
+    ],
+    scrambleWords: [
+      { word: 'ALREADY', hint: 'Signal word for present perfect (done before expected)', clue: 'A_R_A_Y' },
+      { word: 'PARTICIPLE', hint: 'The verb form used in perfect tenses', clue: 'P_R_I_I_L_' },
+      { word: 'PREDICTION', hint: 'A statement about the future', clue: 'P_E_I_T_O_' },
+      { word: 'ARRANGEMENT', hint: 'A fixed plan (use present continuous for this)', clue: 'A_R_N_E_E_T' },
+      { word: 'RECENTLY', hint: 'Signal word: not long ago', clue: 'R_C_N_L_' },
+      { word: 'INTENTION', hint: 'A plan you have decided — use "going to"', clue: 'I_T_N_I_N' },
+    ],
+    fillGap: [
+      { sentence: 'I ___ never ___ sushi before. I want to try it!', answer: 'have eaten', words: ['have', 'eaten', 'had', 'ate', 'never', 'did'] },
+      { sentence: 'When she arrived at the station, the train ___ already ___.', answer: 'had left', words: ['had', 'left', 'has', 'leave', 'already', 'gone'] },
+      { sentence: 'I ___ ___ visit Japan next summer. I already bought the tickets.', answer: 'am going to', words: ['am', 'going', 'to', 'will', "won't", 'have'] },
+      { sentence: 'She ___ in London ___ 2019. She loves it there.', answer: 'has lived since', words: ['has', 'lived', 'since', 'for', 'is', 'have'] },
+      { sentence: 'Have you ___ been to New York?', answer: 'ever', words: ['ever', 'never', 'already', 'yet', 'just', 'since'] },
+      { sentence: 'I ___ call you tomorrow, I promise.', answer: 'will', words: ['will', "won't", 'am', 'going', 'have', 'had'] },
+    ],
+    speedQuiz: [
+      { q: '"I visited Paris ___ 2018." Which word fits?', opts: ['since', 'for', 'in', 'already'], correct: 2 },
+      { q: 'Which sentence uses Present Perfect CORRECTLY?', opts: ['I have seen him yesterday.', 'I have seen him recently.', 'I have seen him in 2020.', 'I have saw him.'], correct: 1 },
+      { q: '"Had left" is which tense?', opts: ['Simple Past', 'Present Perfect', 'Past Perfect', 'Future'], correct: 2 },
+      { q: 'Which is a PLANNED future intention?', opts: ['I will open the window.', 'I\'m going to study law.', 'It will rain.', 'Look out!'], correct: 1 },
+      { q: '"I haven\'t finished ___." Which word?', opts: ['already', 'ever', 'yet', 'since'], correct: 2 },
+      { q: '"I have lived here ___ three years." Which word?', opts: ['since', 'for', 'ago', 'in'], correct: 1 },
+      { q: 'When did the action happen in Past Perfect?', opts: ['After the other past action', 'Before the other past action', 'At the same time', 'In the future'], correct: 1 },
+      { q: '"I\'ll call you back." This is a...', opts: ['Plan made long ago', 'Spontaneous decision', 'Evidence prediction', 'Fixed arrangement'], correct: 1 },
+    ],
+    listeningExercises: [
+      { text: 'I have already finished my homework, so I can go out now.', question: 'Is the homework done or not done?', opts: ['Done', 'Not done', 'In progress', 'Cancelled'], correct: 0 },
+      { text: 'When I got home, my roommate had already cooked dinner. It smelled amazing.', question: 'Who cooked dinner first — the speaker or the roommate?', opts: ['The speaker', 'The roommate', 'They cooked together', 'Nobody cooked'], correct: 1 },
+      { text: "I'm going to start a new job next Monday. I'm really excited about it.", question: 'Is this a spontaneous decision or a pre-made plan?', opts: ['Spontaneous decision', 'Pre-made plan', 'A prediction', 'A promise'], correct: 1 },
+    ],
+    quiz: [
+      { q: 'Choose the correct tense: "She ___ to London three times." (life experience)', opts: ['went', 'has gone', 'had gone', 'goes'], correct: 1 },
+      { q: '"When I woke up, it ___ already ___." (snow — happened before waking)', opts: ['has / snowed', 'had / snowed', 'was / snowing', 'did / snow'], correct: 1 },
+      { q: '"I ___ meet Tom at 8pm tonight." (fixed plan with another person)', opts: ['will', '\'m going to', '\'m meeting', 'meet'], correct: 2 },
+      { q: 'Which sentence is INCORRECT?', opts: ['I\'ve lived here for 5 years.', 'I\'ve lived here since 2019.', 'I\'ve lived here since 5 years.', 'I\'ve lived here for a long time.'], correct: 2 },
+      { q: '"Have you ___ tried Indian food?" (at any point in your life)', opts: ['never', 'already', 'ever', 'yet'], correct: 2 },
+      { q: '"Look at those dark clouds! It ___ rain." (evidence-based)', opts: ['will', 'is going to', 'is raining', 'has rained'], correct: 1 },
+      { q: 'Past Perfect is formed with:', opts: ['have + past participle', 'had + past participle', 'will + past participle', 'was + past participle'], correct: 1 },
+      { q: '"I haven\'t eaten ___." (expected but not happened)', opts: ['already', 'ever', 'yet', 'since'], correct: 2 },
+      { q: 'Which is a SPONTANEOUS decision?', opts: ['I\'m going to be a doctor.', 'I\'m meeting her at 7.', 'I\'ll carry that bag for you!', 'It\'s going to be hot tomorrow.'], correct: 2 },
+      { q: '"By the time we arrived, the movie ___." (it started before we arrived)', opts: ['already started', 'has already started', 'had already started', 'was starting'], correct: 2 },
+    ]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // MODULE 2 — Grammar Deep Dive
+  // ─────────────────────────────────────────────────────────────
+  {
+    id: 2,
+    emoji: '🔗',
+    title: 'Grammar Deep Dive',
+    subtitle: 'Conditionals, Passive Voice & Modal Verbs',
+    color: '#1d4ed8',
+    colorLight: '#eff6ff',
+    colorBorder: '#93c5fd',
+    listening: false,
+    lesson: {
+      sections: [
+        {
+          title: 'Conditional Sentences (0, 1, 2)',
+          content: `Conditionals express cause and effect. The <strong>if-clause</strong> gives the condition, and the <strong>result clause</strong> gives what happens.`,
+          table: {
+            headers: ['Type', 'Form', 'Use', 'Example'],
+            rows: [
+              ['Zero (0)', 'If + present, present', 'General truths / scientific facts', '"If you heat water to 100°C, it boils."'],
+              ['First (1)', 'If + present, will + verb', 'Real future possibility', '"If it rains tomorrow, I will stay home."'],
+              ['Second (2)', 'If + past simple, would + verb', 'Hypothetical / imaginary situations', '"If I had more money, I would travel the world."'],
+            ]
+          }
+        },
+        {
+          title: 'Passive Voice',
+          content: `Use the <strong>passive voice</strong> when the ACTION is more important than WHO did it, or when we don't know who did it.`,
+          table: {
+            headers: ['Tense', 'Active', 'Passive (be + past participle)', 'Pronunciation'],
+            rows: [
+              ['Present Simple', 'They make cars here.', 'Cars are made here.', '"are MADE"'],
+              ['Past Simple', 'Someone stole my bike.', 'My bike was stolen.', '"wuz STOH-len"'],
+              ['Present Perfect', 'They have built a new school.', 'A new school has been built.', '"haz ben BILT"'],
+              ['Future (will)', 'They will announce the results.', 'The results will be announced.', '"wil bee uh-NOWNSED"'],
+            ]
+          }
+        },
+        {
+          title: 'Modal Verbs for B1',
+          content: `Modal verbs express <strong>ability, possibility, permission, obligation, and advice</strong>. Each one has a specific meaning and level of certainty.`,
+          table: {
+            headers: ['Modal', 'Use', 'Example', 'Strength'],
+            rows: [
+              ['must', 'Strong obligation / logical deduction', '"You must wear a seatbelt." / "She must be tired."', '🔴 Strong'],
+              ['should', 'Advice / recommendation', '"You should see a doctor."', '🟡 Medium'],
+              ['could', 'Past ability / polite request / possibility', '"I could swim at age 5." / "Could you help me?"', '🟢 Weak'],
+              ['might / may', 'Possibility (less certain)', '"It might rain later."', '🟢 Weak'],
+              ['have to / need to', 'External obligation / necessity', '"I have to work tomorrow."', '🔴 Strong'],
+              ['don\'t have to', 'No obligation (but allowed)', '"You don\'t have to come."', '⚪ Zero obligation'],
+              ['mustn\'t', 'Prohibition (forbidden)', '"You mustn\'t smoke here."', '🔴 Strong prohibition'],
+            ]
+          }
+        }
+      ]
+    },
+    flashcards: [
+      { front: 'Zero Conditional', back: 'If + present, present\n\n"If you mix red and blue, you get purple."\n\nUse: always-true facts', tip: 'Think of it as a scientific rule' },
+      { front: 'First Conditional', back: 'If + present, will + verb\n\n"If I study hard, I will pass."\n\nUse: real future possibility', tip: 'The condition is REALISTIC' },
+      { front: 'Second Conditional', back: 'If + past simple, would + verb\n\n"If I were rich, I would buy a yacht."\n\nUse: imaginary / hypothetical', tip: 'Use "were" for all subjects with "to be"' },
+      { front: 'Passive Voice', back: 'be + past participle\n\n"The letter was written by Maria."\n\nFocus: on the action, not the doer', tip: 'The subject RECEIVES the action' },
+      { front: 'must vs have to', back: 'must = internal obligation (I decide)\nhave to = external obligation (rule/someone else)\n\n"I must study" vs "I have to work on Sunday"', tip: 'Must comes from YOU; have to comes from OUTSIDE' },
+      { front: 'should', back: 'Advice or recommendation\n\n"You should drink more water."\n"You shouldn\'t eat so much sugar."\n\nPronounce: "shud"', tip: 'Softer than must — it\'s a suggestion' },
+      { front: 'might / may', back: 'Possibility — not certain\n\n"It might rain later." (50% chance)\n"She may be at home."\n\nPronounce: "mite" / "may"', tip: 'Both mean "maybe". Might is slightly less certain.' },
+      { front: 'mustn\'t vs don\'t have to', back: 'mustn\'t = FORBIDDEN (not allowed!)\ndon\'t have to = not necessary (but ok if you want)\n\n"You mustn\'t park here." (illegal)\n"You don\'t have to come." (optional)', tip: 'This difference is VERY important!' },
+    ],
+    scrambleWords: [
+      { word: 'CONDITIONAL', hint: 'Sentence type with "if"', clue: 'C_N_I_I_N_L' },
+      { word: 'PASSIVE', hint: 'Voice where subject receives the action', clue: 'P_S_I_E' },
+      { word: 'OBLIGATION', hint: 'Something you must do', clue: 'O_L_G_T_O_' },
+      { word: 'PROHIBITION', hint: 'Something you must NOT do', clue: 'P_O_I_I_I_N' },
+      { word: 'HYPOTHETICAL', hint: 'Imaginary situation (2nd conditional)', clue: 'H_P_T_E_I_A_' },
+      { word: 'POSSIBILITY', hint: 'Something that might happen', clue: 'P_S_I_I_I_Y' },
+    ],
+    fillGap: [
+      { sentence: 'If I ___ more time, I ___ learn Japanese.', answer: 'had would', words: ['had', 'would', 'have', 'will', 'has', 'could'] },
+      { sentence: 'The Eiffel Tower ___ ___ in 1889.', answer: 'was built', words: ['was', 'built', 'is', 'were', 'build', 'been'] },
+      { sentence: 'You ___ wear a seatbelt. It\'s the law.', answer: 'must', words: ['must', 'should', 'might', 'could', 'may', 'would'] },
+      { sentence: 'If you heat ice, it ___ into water.', answer: 'turns', words: ['turns', 'will turn', 'would turn', 'turned', 'turn', 'turning'] },
+      { sentence: 'You ___ ___ ___ pay — it\'s free today!', answer: "don't have to", words: ["don't", 'have', 'to', 'mustn\'t', 'should', 'not'] },
+      { sentence: 'The new hospital ___ ___ ___ by next year.', answer: 'will be built', words: ['will', 'be', 'built', 'is', 'was', 'been'] },
+    ],
+    speedQuiz: [
+      { q: '"If it rains, I ___ stay home." (real future)', opts: ['would', 'will', 'should', 'might'], correct: 1 },
+      { q: 'Which is PASSIVE voice?', opts: ['She wrote the email.', 'The email was written.', 'She writes emails.', 'Write the email!'], correct: 1 },
+      { q: '"You ___ smoke in here." (it\'s forbidden)', opts: ['don\'t have to', 'shouldn\'t', 'mustn\'t', 'might not'], correct: 2 },
+      { q: 'Zero conditional uses...', opts: ['present + will', 'past + would', 'present + present', 'past + could'], correct: 2 },
+      { q: '"She ___ be at home." (50% possibility)', opts: ['must', 'should', 'might', 'will'], correct: 2 },
+      { q: 'Passive is formed with:', opts: ['have + past participle', 'be + past participle', 'will + verb', 'do + verb'], correct: 1 },
+      { q: '"I ___ swim when I was 4." (past ability)', opts: ['must', 'should', 'could', 'would'], correct: 2 },
+      { q: 'Second conditional: imaginary situation uses...', opts: ['present + will', 'past + would', 'present + would', 'past + will'], correct: 1 },
+    ],
+    quiz: [
+      { q: '"If I ___ a million dollars, I ___ travel the world." (imaginary)', opts: ['have / will', 'had / would', 'have / would', 'had / will'], correct: 1 },
+      { q: '"English ___ ___ in many countries." (passive, present)', opts: ['is spoken', 'speaks', 'was spoken', 'has spoken'], correct: 0 },
+      { q: 'Which modal expresses ADVICE?', opts: ['must', 'might', 'should', 'can'], correct: 2 },
+      { q: '"You ___ come to the party — it\'s completely optional."', opts: ['mustn\'t', 'shouldn\'t', 'don\'t have to', 'can\'t'], correct: 2 },
+      { q: '"If you mix yellow and blue, you ___ green." (fact)', opts: ['get', 'will get', 'would get', 'got'], correct: 0 },
+      { q: '"The results ___ ___ announced tomorrow." (future passive)', opts: ['are being', 'will be', 'have been', 'were'], correct: 1 },
+      { q: 'Which sentence shows LOGICAL DEDUCTION?', opts: ['She should be at home.', 'She must be at home — her car is there.', 'She might be at home.', 'She could be at home.'], correct: 1 },
+      { q: 'First conditional: "If she studies, she ___ pass."', opts: ['would', 'will', 'might', 'should'], correct: 1 },
+      { q: '"The pyramids ___ ___ by the ancient Egyptians." (past passive)', opts: ['are built', 'were built', 'have built', 'had built'], correct: 1 },
+      { q: '"I ___ swim, but I\'m not very fast." (present ability)', opts: ['could', 'must', 'can', 'should'], correct: 2 },
+    ]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // MODULE 3 — Communication
+  // ─────────────────────────────────────────────────────────────
+  {
+    id: 3,
+    emoji: '💬',
+    title: 'Communication',
+    subtitle: 'Connectors, Opinions & Formal vs Informal',
+    color: '#b8860b',
+    colorLight: '#fdf6e3',
+    colorBorder: '#e8d5a3',
+    listening: true,
+    lesson: {
+      sections: [
+        {
+          title: 'Connectors & Linking Words',
+          content: `<strong>Connectors</strong> make your English flow naturally. They show relationships between ideas — contrast, addition, cause, result.`,
+          table: {
+            headers: ['Function', 'Connectors', 'Example', 'Pronunciation'],
+            rows: [
+              ['Addition', 'furthermore, in addition, moreover, besides', '"The hotel was expensive. Furthermore, the service was poor."', '"fur-THER-mor"'],
+              ['Contrast', 'however, although, even though, despite, nevertheless', '"I was tired. However, I finished the work."', '"HOW-ev-er"'],
+              ['Cause', 'because, since, as, due to, owing to', '"She was late due to heavy traffic."', '"dyoo TOO"'],
+              ['Result', 'therefore, as a result, consequently, so', '"It was raining; therefore, we stayed inside."', '"THER-for"'],
+              ['Concession', 'although, even though, in spite of', '"Although it was cold, we went for a walk."', '"al-THOH"'],
+            ]
+          }
+        },
+        {
+          title: 'Expressing Opinions',
+          content: `At B1 level, you need to express, support, and respond to opinions clearly and politely.`,
+          table: {
+            headers: ['Function', 'Phrases', 'Register'],
+            rows: [
+              ['Give opinion', '"In my opinion..." / "I think that..." / "From my point of view..." / "As far as I\'m concerned..."', 'Neutral / Formal'],
+              ['Agree', '"I totally agree." / "Exactly!" / "That\'s a good point." / "I couldn\'t agree more."', 'Informal / Formal'],
+              ['Disagree politely', '"I see your point, but..." / "I\'m not sure I agree..." / "I respectfully disagree."', 'Formal'],
+              ['Give examples', '"For example..." / "For instance..." / "Such as..." / "A good example of this is..."', 'Neutral'],
+              ['Conclude', '"In conclusion..." / "To sum up..." / "All in all..." / "Overall..."', 'Formal'],
+            ]
+          }
+        },
+        {
+          title: 'Formal vs Informal English',
+          content: `Knowing when to use formal or informal language is essential at B1 level — for emails, conversations, and writing.`,
+          table: {
+            headers: ['Informal', 'Formal', 'Context'],
+            rows: [
+              ['Hey / Hi', 'Dear Mr./Ms. + surname', 'Greetings in writing'],
+              ['Thanks a lot', 'I would like to express my gratitude', 'Thanking someone'],
+              ['Can you...?', 'Could you please...? / Would you mind...?', 'Making requests'],
+              ['Sorry', 'I sincerely apologize', 'Apologizing'],
+              ['ASAP / FYI', 'As soon as possible / For your information', 'Abbreviations'],
+              ['Get', 'Obtain / Receive / Become', 'Verbs'],
+              ['It\'s about...', 'I am writing with regard to...', 'Email openings'],
+            ]
+          }
+        }
+      ]
+    },
+    flashcards: [
+      { front: 'however', back: 'Contrast connector\n\n"I was tired. However, I kept working."\n\nPronounce: "HOW-ev-er"\n\nSynonyms: nevertheless, nonetheless', tip: 'Use a period OR semicolon before "however"' },
+      { front: 'furthermore', back: 'Addition connector (formal)\n\n"The plan is expensive. Furthermore, it is risky."\n\nPronounce: "FUR-ther-more"', tip: 'More formal than "also" or "and"' },
+      { front: 'therefore', back: 'Result connector\n\n"She studied hard; therefore, she passed.\"\n\nPronounce: "THER-for"', tip: 'Signals a LOGICAL RESULT' },
+      { front: 'despite / in spite of', back: 'Concession — followed by a NOUN or -ing\n\n"Despite the rain, we went out."\n"In spite of being tired, she worked."\n\nNOT followed by a clause!', tip: 'Despite/In spite of + noun or verb-ing (no subject!)' },
+      { front: 'although / even though', back: 'Concession — followed by a CLAUSE\n\n"Although it was cold, we went out."\n"Even though she was tired, she worked."\n\nPronounce: "al-THOH" / "EE-ven thoh"', tip: 'Although/Even though + subject + verb' },
+      { front: 'In my opinion...', back: 'Phrase to give your opinion\n\n"In my opinion, social media has more disadvantages than advantages."\n\nVariants: "I think...", "I believe...", "From my point of view..."', tip: 'Always followed by a comma in writing' },
+      { front: 'I see your point, but...', back: 'Polite way to DISAGREE\n\n"I see your point, but I think the costs are too high."\n\nVariants: "That\'s true, however..." / "I understand, but..."', tip: 'Acknowledge the other person BEFORE disagreeing' },
+      { front: 'Could you please...?', back: 'Formal/polite request\n\n"Could you please send me the report?"\n\nMore polite than: "Can you send me..."', tip: 'Use in professional emails and formal situations' },
+    ],
+    scrambleWords: [
+      { word: 'FURTHERMORE', hint: 'Formal connector meaning "in addition"', clue: 'F_R_H_R_O_E' },
+      { word: 'NEVERTHELESS', hint: 'Contrast connector, synonym of "however"', clue: 'N_V_R_H_L_S_' },
+      { word: 'CONSEQUENTLY', hint: 'Result connector meaning "as a result"', clue: 'C_N_E_U_N_L_' },
+      { word: 'INFORMAL', hint: 'The type of language used with friends', clue: 'I_F_R_A_' },
+      { word: 'OPINION', hint: 'Your personal view on something', clue: 'O_I_I_N' },
+      { word: 'CONCLUSION', hint: 'The final part of an argument', clue: 'C_N_L_S_O_' },
+    ],
+    fillGap: [
+      { sentence: '___ my opinion, learning English is very important for career growth.', answer: 'In', words: ['In', 'From', 'At', 'On', 'By', 'For'] },
+      { sentence: 'The project was expensive. ___, it took twice as long as planned.', answer: 'Furthermore', words: ['Furthermore', 'However', 'Therefore', 'Despite', 'Although', 'Because'] },
+      { sentence: 'She was nervous; ___, she gave an excellent presentation.', answer: 'nevertheless', words: ['nevertheless', 'therefore', 'furthermore', 'since', 'because', 'also'] },
+      { sentence: '___ the bad weather, we decided to continue the trip.', answer: 'Despite', words: ['Despite', 'Although', 'Even', 'However', 'Because', 'Since'] },
+      { sentence: 'I ___ ___ ___ you to send me the document as soon as possible.', answer: 'would like to ask', words: ['would', 'like', 'to', 'ask', 'want', 'need'] },
+      { sentence: '___ sum up, I believe this project will be a great success.', answer: 'To', words: ['To', 'In', 'For', 'At', 'By', 'As'] },
+    ],
+    speedQuiz: [
+      { q: 'Which connector shows CONTRAST?', opts: ['furthermore', 'therefore', 'however', 'since'], correct: 2 },
+      { q: '"___ the rain, we enjoyed the trip." Which fits?', opts: ['Although', 'Despite', 'However', 'Therefore'], correct: 1 },
+      { q: 'Which is MORE FORMAL?', opts: ['Can you help?', 'Could you please assist me?', 'Help me!', 'Hey, help?'], correct: 1 },
+      { q: 'Which phrase politely DISAGREES?', opts: ['You\'re wrong!', 'No way!', 'I see your point, but...', 'Totally agree!'], correct: 2 },
+      { q: '"As a result" shows...', opts: ['Contrast', 'Addition', 'Cause', 'Result'], correct: 3 },
+      { q: '"Although" is followed by...', opts: ['a noun', 'verb-ing', 'subject + verb', 'an adjective'], correct: 2 },
+      { q: 'Which opener is FORMAL for an email?', opts: ['Hey Sarah!', 'What\'s up?', 'Dear Ms. Johnson,', 'Hi there,'], correct: 2 },
+      { q: '"In conclusion" is used to...', opts: ['Start a topic', 'Add information', 'Sum up at the end', 'Show contrast'], correct: 2 },
+    ],
+    listeningExercises: [
+      { text: 'In my opinion, working from home has more advantages than disadvantages. However, I understand that some people prefer to be in an office environment.', question: 'Does the speaker think working from home is mostly good or bad?', opts: ['Mostly good', 'Mostly bad', 'Exactly equal', 'They have no opinion'], correct: 0 },
+      { text: 'Dear Ms. Thompson, I am writing with regard to the meeting scheduled for next Friday. Could you please confirm whether the time is still convenient for you?', question: 'What is the REGISTER of this message?', opts: ['Very informal', 'Formal', 'Casual', 'Rude'], correct: 1 },
+    ],
+    quiz: [
+      { q: 'Choose the correct connector: "It was raining; ___, we cancelled the picnic."', opts: ['although', 'despite', 'furthermore', 'therefore'], correct: 3 },
+      { q: '"___ being expensive, the hotel was worth it." Which fits?', opts: ['Although', 'Despite', 'However', 'Because'], correct: 1 },
+      { q: 'Which phrase correctly introduces an opinion?', opts: ['In my opinion, ...', 'I\'m opinion that...', 'From my opinion...', 'At my opinion...'], correct: 0 },
+      { q: 'Which is the FORMAL version of "Thanks a lot"?', opts: ['Cheers!', 'I am grateful.', 'I would like to express my sincere gratitude.', 'Many thanks!'], correct: 2 },
+      { q: '"___ the difficulties, she completed the project on time."', opts: ['Although', 'Despite', 'Even if', 'However'], correct: 1 },
+      { q: 'Which connector shows ADDITION (formal)?', opts: ['but', 'however', 'furthermore', 'because'], correct: 2 },
+      { q: '"Could you ___ send me the report by Friday?"', opts: ['please', 'possibly', 'kindly', 'All of the above are correct'], correct: 3 },
+      { q: 'To politely disagree, you say:', opts: ['You\'re completely wrong.', 'I see your point, but I think...', 'That\'s not true at all.', 'No, you\'re mistaken.'], correct: 1 },
+      { q: '"___ sum up, the project was a success."', opts: ['In', 'To', 'For', 'At'], correct: 1 },
+      { q: '"Although" vs "Despite": what\'s the key difference?', opts: ['No difference', 'Although + noun; Despite + clause', 'Although + clause; Despite + noun/-ing', 'They cannot be used in the same sentence'], correct: 2 },
+    ]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // MODULE 4 — Vocabulary & Word Power
+  // ─────────────────────────────────────────────────────────────
+  {
+    id: 4,
+    emoji: '📚',
+    title: 'Vocabulary & Word Power',
+    subtitle: 'Phrasal Verbs, Collocations & Word Families',
+    color: '#059669',
+    colorLight: '#ecfdf5',
+    colorBorder: '#6ee7b7',
+    listening: false,
+    lesson: {
+      sections: [
+        {
+          title: 'Essential Phrasal Verbs',
+          content: `<strong>Phrasal verbs</strong> combine a verb + preposition/adverb to create a new meaning. They are extremely common in spoken and informal English.`,
+          table: {
+            headers: ['Phrasal Verb', 'Meaning', 'Example', 'Pronunciation'],
+            rows: [
+              ['bring up', 'raise a child / mention a topic', '"She was brought up in Mexico." / "Don\'t bring that up again."', '"BRING up"'],
+              ['carry out', 'perform / execute a task', '"We need to carry out an investigation."', '"KAR-ee OWT"'],
+              ['come across', 'find by chance / give an impression', '"I came across an old photo." / "She comes across as confident."', '"kum uh-KROS"'],
+              ['deal with', 'handle a problem/situation', '"How do you deal with stress?"', '"DEEL with"'],
+              ['figure out', 'understand / solve', '"I can\'t figure out this problem."', '"FIG-yer OWT"'],
+              ['give up', 'stop trying / quit', '"Don\'t give up! You can do it."', '"GIV up"'],
+              ['look into', 'investigate / research', '"I\'ll look into the matter."', '"luk IN-too"'],
+              ['set up', 'establish / organize', '"She set up her own business."', '"SET up"'],
+              ['take on', 'accept responsibility / hire', '"He took on too much work."', '"TAYK on"'],
+              ['turn out', 'result / end up being', '"The event turned out to be amazing."', '"TURN owt"'],
+            ]
+          }
+        },
+        {
+          title: 'B1 Collocations',
+          content: `These are <strong>high-frequency collocations</strong> that appear in B1 exams and everyday communication.`,
+          table: {
+            headers: ['Collocation', 'Incorrect (common mistake)', 'Example sentence'],
+            rows: [
+              ['make progress', '❌ do progress', '"We\'re making great progress on the project."'],
+              ['pay attention', '❌ give attention', '"Please pay attention to the instructions."'],
+              ['take responsibility', '❌ get responsibility', '"You need to take responsibility for your actions."'],
+              ['do research', '❌ make research', '"Scientists are doing research into climate change."'],
+              ['reach a conclusion', '❌ arrive a conclusion', '"After long discussions, we reached a conclusion."'],
+              ['raise awareness', '❌ rise awareness', '"This campaign aims to raise awareness of poverty."'],
+              ['have an impact on', '❌ make an impact on', '"Social media has a huge impact on young people."'],
+            ]
+          }
+        }
+      ]
+    },
+    flashcards: [
+      { front: 'give up', back: 'To stop trying; to quit\n\n"She gave up smoking last year."\n"Don\'t give up — you\'re almost there!"\n\nPronounce: "GIV up"', tip: 'Separable: give it up / give up smoking' },
+      { front: 'figure out', back: 'To understand or solve something\n\n"I can\'t figure out this math problem."\n"Did you figure out what happened?"\n\nPronounce: "FIG-yer owt"', tip: 'Very common in American English' },
+      { front: 'come across', back: 'To find by chance OR to give an impression\n\n"I came across an old letter in the attic."\n"She comes across as very professional."\n\nPronounce: "kum uh-KROS"', tip: 'Two very different meanings — context is key!' },
+      { front: 'make progress', back: 'To advance toward a goal\n\n"We\'re making great progress!"\n\nNOT: ❌ "do progress"\n\nPronounce: "mayk PRO-gres"', tip: 'Always MAKE progress, never do' },
+      { front: 'pay attention', back: 'To focus on / listen carefully\n\n"Pay attention to the details."\n\nNOT: ❌ "give attention"\n\nPronounce: "pay uh-TEN-shun"', tip: 'Always PAY attention, never give' },
+      { front: 'carry out', back: 'To perform or complete a task\n\n"The team carried out the experiment."\n"We will carry out a full investigation."\n\nPronounce: "KAR-ee owt"', tip: 'Common in formal and academic English' },
+      { front: 'turn out', back: 'To result in a certain way\n\n"The party turned out to be fantastic!"\n"It turned out that he was right all along."\n\nPronounce: "TURN owt"', tip: 'Often followed by "to be" or "that"' },
+      { front: 'raise awareness', back: 'To make people more conscious of an issue\n\n"The campaign raised awareness of climate change."\n\nNOT: ❌ "rise awareness"\n\nPronounce: "rayz uh-WAIR-nes"', tip: 'RAISE is transitive (needs an object); RISE is not' },
+    ],
+    scrambleWords: [
+      { word: 'PHRASAL', hint: 'Type of verb: verb + preposition', clue: 'P_R_S_L' },
+      { word: 'INVESTIGATE', hint: 'Synonym of "look into"', clue: 'I_V_S_I_A_E' },
+      { word: 'RESPONSIBILITY', hint: 'Collocates with "take"', clue: 'R_S_O_S_B_L_T_' },
+      { word: 'AWARENESS', hint: '"Raise ___" — make people conscious', clue: 'A_A_E_E_S' },
+      { word: 'CONCLUSION', hint: '"Reach a ___" — collocate', clue: 'C_N_L_S_O_' },
+      { word: 'COLLOCATION', hint: 'Words that naturally go together', clue: 'C_L_O_A_I_N' },
+    ],
+    fillGap: [
+      { sentence: 'I need to ___ ___ why the system keeps crashing.', answer: 'figure out', words: ['figure', 'out', 'look', 'into', 'find', 'solve'] },
+      { sentence: 'The police are ___ ___ the cause of the accident.', answer: 'looking into', words: ['looking', 'into', 'carrying', 'out', 'figuring', 'up'] },
+      { sentence: 'We are ___ great ___ with the new project.', answer: 'making progress', words: ['making', 'progress', 'doing', 'having', 'taking', 'advance'] },
+      { sentence: 'Please ___ ___ during the safety training.', answer: 'pay attention', words: ['pay', 'attention', 'give', 'focus', 'make', 'listen'] },
+      { sentence: 'Despite the challenges, everything ___ ___ perfectly.', answer: 'turned out', words: ['turned', 'out', 'came', 'across', 'set', 'up'] },
+      { sentence: 'She decided to ___ ___ her own consulting company.', answer: 'set up', words: ['set', 'up', 'bring', 'carry', 'take', 'on'] },
+    ],
+    speedQuiz: [
+      { q: '"I ___ ___ an old friend at the supermarket." (found by chance)', opts: ['came across', 'gave up', 'figured out', 'looked into'], correct: 0 },
+      { q: 'Which is the CORRECT collocation?', opts: ['do progress', 'make progress', 'take progress', 'have progress'], correct: 1 },
+      { q: '"Don\'t ___ ___! You\'re almost finished." (stop trying)', opts: ['look into', 'set up', 'give up', 'carry out'], correct: 2 },
+      { q: '"The police ___ ___ an investigation." (performed)', opts: ['gave up', 'carried out', 'turned out', 'came across'], correct: 1 },
+      { q: 'Which is correct: "raise awareness" or "rise awareness"?', opts: ['rise awareness', 'raise awareness', 'both are correct', 'neither is correct'], correct: 1 },
+      { q: '"Can you ___ ___ what time the meeting starts?" (discover)', opts: ['figure out', 'take on', 'deal with', 'set up'], correct: 0 },
+      { q: '"She ___ ___ as very confident in the interview." (impression)', opts: ['came across', 'gave up', 'took on', 'turned out'], correct: 0 },
+      { q: 'Correct collocation: "___ attention to details"', opts: ['make', 'give', 'pay', 'take'], correct: 2 },
+    ],
+    quiz: [
+      { q: '"She ___ ___ her children alone after her divorce." (raised)', opts: ['brought up', 'set up', 'came across', 'took on'], correct: 0 },
+      { q: 'Which collocation is CORRECT?', opts: ['do research', 'make research', 'take research', 'have research'], correct: 0 },
+      { q: '"I\'ll ___ ___ the issue and get back to you." (investigate)', opts: ['figure out', 'look into', 'deal with', 'turn out'], correct: 1 },
+      { q: '"The conference ___ ___ to be a great success."', opts: ['set up', 'turned out', 'came across', 'gave up'], correct: 1 },
+      { q: 'Choose the correct collocation: "___ a conclusion"', opts: ['do', 'make', 'reach', 'take'], correct: 2 },
+      { q: '"How do you ___ ___ stressful situations?"', opts: ['figure out', 'deal with', 'give up', 'look into'], correct: 1 },
+      { q: '"She took ___ more work than she could handle." (accepted)', opts: ['out', 'up', 'on', 'over'], correct: 2 },
+      { q: 'Which is an INCORRECT collocation?', opts: ['make progress', 'pay attention', 'do research', 'make awareness'], correct: 3 },
+      { q: '"They will ___ ___ a full investigation next week." (perform)', opts: ['set up', 'carry out', 'bring up', 'come across'], correct: 1 },
+      { q: '"___ ___ — the answer will come to you eventually!" (don\'t quit)', opts: ['Set up', 'Give up', 'Don\'t give up', 'Come across'], correct: 2 },
+    ]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // MODULE 5 — Reading & Writing
+  // ─────────────────────────────────────────────────────────────
+  {
+    id: 5,
+    emoji: '🌍',
+    title: 'Reading & Writing',
+    subtitle: 'Advanced Comprehension & Written Expression',
+    color: '#be185d',
+    colorLight: '#fdf2f8',
+    colorBorder: '#f9a8d4',
+    listening: true,
+    lesson: {
+      sections: [
+        {
+          title: 'Reading Strategies for B1',
+          content: `At B1 level, you need to read efficiently. Use these <strong>strategies</strong> to understand texts even when you don\'t know every word.`,
+          table: {
+            headers: ['Strategy', 'When to use it', 'How to do it'],
+            rows: [
+              ['Skimming', 'Get the general idea quickly', 'Read only the title, first sentence of each paragraph, and last sentence'],
+              ['Scanning', 'Find specific information', 'Move your eyes quickly looking for keywords, numbers, or names'],
+              ['Context clues', 'Guess unknown words', 'Look at the words and sentences around the unknown word'],
+              ['Inference', 'Understand what\'s implied', 'Think: "What does the author SUGGEST but not say directly?"'],
+              ['Paragraph structure', 'Find main ideas', 'Topic sentence (first) → supporting details → sometimes a concluding sentence'],
+            ]
+          }
+        },
+        {
+          title: 'Writing at B1 Level',
+          content: `B1 writing should be <strong>clear, organized, and use varied vocabulary</strong>. Learn these structures for emails, opinions, and short essays.`,
+          table: {
+            headers: ['Text Type', 'Structure', 'Key phrases'],
+            rows: [
+              ['Informal email', 'Greeting → Reason for writing → Main content → Closing', '"Hi [Name]! / How are you? / I\'m writing because... / Speak soon, [Name]"'],
+              ['Formal email', 'Dear + title → Purpose → Details → Request/Closing', '"Dear Ms. X, / I am writing with regard to... / I would appreciate... / Yours sincerely,"'],
+              ['Opinion paragraph', 'Topic sentence → 2-3 supporting points → Conclusion', '"In my opinion, ... / First, ... / Furthermore, ... / In conclusion, ..."'],
+              ['Describe a place/event', 'General impression → Specific details → Personal reaction', '"The city of... is known for... / What struck me most was... / Overall, I would recommend..."'],
+            ]
+          }
+        }
+      ]
+    },
+    flashcards: [
+      { front: 'Skimming', back: 'Reading quickly for GENERAL understanding\n\nHow: Read title + first/last sentence of each paragraph\n\nGoal: Get the main idea in 30-60 seconds', tip: 'Don\'t read every word — your eyes should skim like a stone on water' },
+      { front: 'Scanning', back: 'Reading quickly for SPECIFIC information\n\nHow: Look for keywords, numbers, names — ignore the rest\n\nGoal: Find one piece of information fast', tip: 'Like searching with Ctrl+F in a document' },
+      { front: 'Inference', back: 'Understanding what the author IMPLIES but doesn\'t say directly\n\n"Reading between the lines"\n\nExample: "She looked at the clock three times." → We infer she was impatient/bored', tip: 'Ask yourself: What does this suggest? What can I conclude?' },
+      { front: 'Topic sentence', back: 'The FIRST sentence of a paragraph that states the main idea\n\n"Social media has transformed the way we communicate."\n\nEverything else in the paragraph supports this idea.', tip: 'When reading, focus on first sentences to quickly understand structure' },
+      { front: 'Dear Ms./Mr. ...', back: 'Formal email greeting\n\nUse the person\'s LAST NAME\n\n"Dear Ms. Johnson," ✅\n"Dear Ms. Emma," ❌\n"Dear Emma," (only if you know them well)', tip: 'Always followed by a comma in British English' },
+      { front: 'I am writing with regard to...', back: 'Formal email opener — states the PURPOSE\n\n"I am writing with regard to your advertisement for the position of..."\n\nAlternatives:\n"I am writing to inquire about..."\n"I am writing in response to..."', tip: 'Never start a formal email with "I" at the very beginning — use "Dear..." first' },
+      { front: 'Yours sincerely / Faithfully', back: 'Formal email closings\n\n"Yours sincerely" → when you know the name (Dear Ms. X)\n"Yours faithfully" → when you DON\'T know the name (Dear Sir/Madam)\n\nPronounce: "YOR-z SIN-ser-lee"', tip: 'British English rule — Americans use "Sincerely" for both' },
+      { front: 'Context clues', back: 'Using surrounding words to guess the meaning of unknown vocabulary\n\n"The hikers were exhausted after the arduous climb."\n→ "arduous" must mean very difficult\n\nLook for: definitions, synonyms, antonyms, examples in the text', tip: 'Never stop reading just because of one unknown word' },
+    ],
+    scrambleWords: [
+      { word: 'SKIMMING', hint: 'Reading quickly for general understanding', clue: 'S_I_M_N_' },
+      { word: 'INFERENCE', hint: 'Understanding what is implied, not stated', clue: 'I_F_R_N_E' },
+      { word: 'PARAGRAPH', hint: 'A block of text with one main idea', clue: 'P_R_G_A_H' },
+      { word: 'SINCERELY', hint: 'How to close a formal email (you know their name)', clue: 'S_N_E_E_Y' },
+      { word: 'STRUCTURE', hint: 'The organization of a text or email', clue: 'S_R_C_U_E' },
+      { word: 'COMPREHENSION', hint: 'Understanding what you read or hear', clue: 'C_M_R_H_N_I_N' },
+    ],
+    fillGap: [
+      { sentence: 'I am ___ ___ ___ to your job advertisement posted on LinkedIn.', answer: 'writing in response', words: ['writing', 'in', 'response', 'with', 'regard', 'for'] },
+      { sentence: 'The ___ sentence of each paragraph usually states the main idea.', answer: 'topic', words: ['topic', 'first', 'last', 'main', 'key', 'opening'] },
+      { sentence: '___ ___ Ms. Carter, I would like to apply for the position.', answer: 'Dear', words: ['Dear', 'Hi', 'Hello', 'Greetings', 'To', 'Respected'] },
+      { sentence: 'You can use ___ clues to understand unknown words in a text.', answer: 'context', words: ['context', 'dictionary', 'text', 'reading', 'grammar', 'language'] },
+      { sentence: 'Yours ___, [signature] — use this when you know the person\'s name.', answer: 'sincerely', words: ['sincerely', 'faithfully', 'kindly', 'truly', 'greatly', 'deeply'] },
+      { sentence: 'When ___, only read the first and last sentence of each paragraph.', answer: 'skimming', words: ['skimming', 'scanning', 'reading', 'studying', 'writing', 'inferring'] },
+    ],
+    speedQuiz: [
+      { q: 'You want to find a date in a long article. You use...', opts: ['skimming', 'scanning', 'inference', 'paraphrasing'], correct: 1 },
+      { q: 'Which formal email closing is used when you DON\'T know the name?', opts: ['Yours sincerely', 'Best wishes', 'Yours faithfully', 'Kind regards'], correct: 2 },
+      { q: 'A topic sentence is usually...', opts: ['The last sentence', 'The first sentence', 'The longest sentence', 'A question'], correct: 1 },
+      { q: '"Reading between the lines" means...', opts: ['Skimming', 'Scanning', 'Making an inference', 'Paraphrasing'], correct: 2 },
+      { q: 'Which is a correct FORMAL email opener?', opts: ['Hey John!', 'What\'s up?', 'I am writing with regard to...', 'Just wanted to say...'], correct: 2 },
+      { q: 'Context clues help you...', opts: ['Write better', 'Guess unknown words', 'Speak faster', 'Remember grammar rules'], correct: 1 },
+      { q: 'Which text type uses "In my opinion" and "In conclusion"?', opts: ['Informal email', 'Recipe', 'Opinion paragraph', 'Story'], correct: 2 },
+      { q: '"Dear Ms. Thompson, Yours sincerely" — is this formal or informal?', opts: ['Informal', 'Formal', 'Neither', 'Both'], correct: 1 },
+    ],
+    listeningExercises: [
+      { text: 'I am writing with regard to the project deadline. I would like to request a short extension of two days, as our team has encountered some unexpected technical difficulties. I sincerely apologize for any inconvenience this may cause.', question: 'What is the main purpose of this message?', opts: ['To complain about the project', 'To request more time for a deadline', 'To quit the project', 'To ask for a meeting'], correct: 1 },
+      { text: 'The article discusses how remote work has changed office culture. While many employees appreciate the flexibility, managers often struggle to maintain team cohesion. Nevertheless, studies suggest that productivity has actually increased in most sectors.', question: 'What does the article suggest about productivity with remote work?', opts: ['It has decreased significantly', 'It has stayed the same', 'It has actually increased', 'The article doesn\'t mention productivity'], correct: 2 },
+    ],
+    quiz: [
+      { q: 'Which reading strategy do you use to get a GENERAL idea of a text?', opts: ['Scanning', 'Skimming', 'Memorizing', 'Translating'], correct: 1 },
+      { q: 'Choose the correct formal email opener:', opts: ['Hey! I\'m writing about the job.', 'I am writing with regard to the advertised position.', 'What\'s up? Saw your ad!', 'Greetings, I need a job.'], correct: 1 },
+      { q: '"The hikers were exhausted after the grueling trek." What does "grueling" likely mean?', opts: ['relaxing', 'very difficult and tiring', 'beautiful and scenic', 'short and easy'], correct: 1 },
+      { q: 'When you "make an inference" from a text, you...', opts: ['Copy the main idea', 'Translate the text', 'Understand something that is implied', 'Find specific facts'], correct: 2 },
+      { q: 'Which closing is correct when you DON\'T know the recipient\'s name?', opts: ['Yours sincerely', 'Best wishes', 'Yours faithfully', 'See you!'], correct: 2 },
+      { q: 'A well-structured opinion paragraph should have:', opts: ['Only examples', 'Topic sentence + support + conclusion', 'Just a conclusion', 'Only personal stories'], correct: 1 },
+      { q: '"Scanning" a text means:', opts: ['Reading every word carefully', 'Looking for specific information quickly', 'Getting the general idea', 'Making notes while reading'], correct: 1 },
+      { q: 'Which sentence is the best TOPIC SENTENCE for a paragraph about exercise?', opts: ['I went jogging yesterday.', 'Running shoes are expensive.', 'Regular exercise has numerous health benefits.', 'My gym is near my house.'], correct: 2 },
+      { q: 'In a formal email, "I would appreciate" is used to...', opts: ['thank someone', 'make a polite request', 'apologize', 'introduce yourself'], correct: 1 },
+      { q: 'Context clues are useful when...', opts: ['you want to write faster', 'you encounter an unknown word while reading', 'you need to memorize grammar rules', 'you want to improve your accent'], correct: 1 },
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════════════════════════
+//  PROGRESS MANAGEMENT (localStorage)
+// ═══════════════════════════════════════════════════════════════
+const STORAGE_KEY = 'englishB1_progress';
+
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return getDefaultProgress();
+    return JSON.parse(raw);
+  } catch(e) {
+    return getDefaultProgress();
+  }
+}
+
+function getDefaultProgress() {
+  return {
+    moduleStatus: MODULES.map((m, i) => ({
+      id: i,
+      unlocked: i === 0,
+      completed: false,
+      quizScore: null,
+      quizAttempts: 0,
+      gamesCompleted: { flashcards: false, scramble: false, fillgap: false, speedquiz: false },
+      xp: 0
+    })),
+    totalXP: 0,
+    streak: 0,
+    lastStudied: null
+  };
+}
+
+function saveProgress(progress) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+  } catch(e) {}
+}
+
+function resetProgress() {
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+// ═══════════════════════════════════════════════════════════════
+//  ENGLISH ACADEMY B1 — App Logic
+// ═══════════════════════════════════════════════════════════════
+
+let progress = loadProgress();
+let currentModuleId = 0;
+const LETTERS = ['A','B','C','D'];
+
+// ─────────────────────────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderDashboard();
+  updateStreak();
+});
+
+function updateStreak() {
+  const today = new Date().toDateString();
+  if (progress.lastStudied !== today) {
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    if (progress.lastStudied === yesterday) {
+      progress.streak = (progress.streak || 0) + 1;
+    } else if (progress.lastStudied && progress.lastStudied !== today) {
+      progress.streak = 1;
+    } else {
+      progress.streak = progress.streak || 0;
+    }
+    progress.lastStudied = today;
+    saveProgress(progress);
+  }
+  document.getElementById('total-xp').textContent = progress.totalXP || 0;
+  document.getElementById('streak-count').textContent = progress.streak || 0;
+}
+
+// ─────────────────────────────────────────────────────────────
+//  SCREEN MANAGEMENT
+// ─────────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goToDashboard() {
+  renderDashboard();
+  showScreen('screen-dashboard');
+}
+
+function goToModule() {
+  renderModuleHome(currentModuleId);
+  showScreen('screen-module');
+}
+
+function confirmReset() {
+  if (confirm('¿Resetear todo el progreso? Esta acción no se puede deshacer.')) {
+    resetProgress();
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+//  DASHBOARD
+// ─────────────────────────────────────────────────────────────
+function renderDashboard() {
+  // Update header
+  document.getElementById('total-xp').textContent = progress.totalXP || 0;
+  document.getElementById('streak-count').textContent = progress.streak || 0;
+
+  // Overall progress
+  const completed = progress.moduleStatus.filter(m => m.completed).length;
+  const pct = Math.round((completed / MODULES.length) * 100);
+  document.getElementById('op-pct').textContent = pct + '%';
+  setTimeout(() => { document.getElementById('op-fill').style.width = pct + '%'; }, 100);
+
+  // Modules grid
+  const grid = document.getElementById('modules-grid');
+  grid.innerHTML = '';
+
+  MODULES.forEach((mod, i) => {
+    const ms = progress.moduleStatus[i];
+    const card = document.createElement('div');
+    const statusCls = ms.completed ? 'completed' : ms.unlocked ? 'unlocked' : 'locked';
+    card.className = `module-card ${statusCls}`;
+    card.style.setProperty('--m-color', mod.color);
+
+    const gamesArr = ['flashcards','scramble','fillgap','speedquiz'];
+    const gameDots = gamesArr.map(g =>
+      `<div class="mc-game-dot ${ms.gamesCompleted[g] ? 'done' : ''}"></div>`
+    ).join('');
+
+    const statusText = ms.completed ? '✅ Completado' : ms.unlocked ? '🔓 En progreso' : '🔒 Bloqueado';
+    const statusClass = ms.completed ? 'status-done' : ms.unlocked ? 'status-unlocked' : 'status-locked';
+    const quizText = ms.quizScore !== null ? `Quiz: ${ms.quizScore}%` : '';
+
+    card.innerHTML = `
+      <div class="mc-emoji">${mod.emoji}</div>
+      <div class="mc-info">
+        <h3>${mod.title}</h3>
+        <p>${mod.subtitle}</p>
+      </div>
+      <div class="mc-right">
+        <span class="mc-status ${statusClass}">${statusText}</span>
+        ${quizText ? `<span class="mc-quiz-score">${quizText}</span>` : ''}
+        <div class="mc-games-row">${gameDots}</div>
+      </div>
+    `;
+
+    if (ms.unlocked) {
+      card.onclick = () => openModule(i);
+    }
+    grid.appendChild(card);
+  });
+}
+
+// ─────────────────────────────────────────────────────────────
+//  MODULE HOME
+// ─────────────────────────────────────────────────────────────
+function openModule(id) {
+  currentModuleId = id;
+  renderModuleHome(id);
+  showScreen('screen-module');
+}
+
+function renderModuleHome(id) {
+  const mod = MODULES[id];
+  const ms = progress.moduleStatus[id];
+
+  // Hero
+  const hero = document.getElementById('module-hero');
+  hero.style.background = `linear-gradient(135deg, ${mod.color}15, ${mod.color}30)`;
+  hero.style.border = `1.5px solid ${mod.colorBorder}`;
+  document.getElementById('mh-emoji').textContent = mod.emoji;
+  document.getElementById('mh-title').textContent = mod.title;
+  document.getElementById('mh-subtitle').textContent = mod.subtitle;
+
+  const badges = document.getElementById('mh-badges');
+  const xpEarned = ms.xp || 0;
+  badges.innerHTML = `
+    <span class="mh-badge">⚡ ${xpEarned} XP earned</span>
+    ${ms.quizScore !== null ? `<span class="mh-badge">📝 Quiz: ${ms.quizScore}%</span>` : ''}
+    ${ms.completed ? '<span class="mh-badge">✅ Completed</span>' : ''}
+  `;
+
+  // Activities
+  const grid = document.getElementById('activities-grid');
+  grid.innerHTML = '';
+
+  const activities = [
+    { key: 'lesson',   emoji: '📖', title: 'Lesson',      desc: 'Teoría y tabla de referencia', alwaysUnlocked: true, isLesson: true },
+    { key: 'flashcards', emoji: '🃏', title: 'Flashcards',  desc: `${mod.flashcards.length} tarjetas · Vocabulario + pronunciación` },
+    { key: 'scramble',   emoji: '🔤', title: 'Word Scramble', desc: `${mod.scrambleWords.length} palabras · Ordena las letras` },
+    { key: 'fillgap',    emoji: '🎯', title: 'Fill the Gap', desc: `${mod.fillGap.length} oraciones · Construye la respuesta` },
+    { key: 'speedquiz',  emoji: '⚡', title: 'Speed Quiz',   desc: `${mod.speedQuiz.length} preguntas · 10 segundos por pregunta` },
+  ];
+
+  if (mod.listening && mod.listeningExercises) {
+    activities.splice(5, 0, { key: 'listening', emoji: '🎧', title: 'Listening', desc: `${mod.listeningExercises.length} ejercicios · Audio con voz del navegador` });
+  }
+
+  activities.forEach(act => {
+    const done = act.key === 'lesson' ? false : ms.gamesCompleted[act.key];
+    const card = document.createElement('div');
+
+    if (act.key === 'quiz') {
+      const quizClass = ms.quizScore !== null
+        ? (ms.quizScore >= 80 ? 'done' : 'needs-retry')
+        : '';
+      card.className = `activity-card quiz-activity-card ${quizClass}`;
+      const qLabel = ms.quizScore !== null
+        ? (ms.quizScore >= 80 ? `✅ Passed (${ms.quizScore}%)` : `❌ Try again (${ms.quizScore}% — need 80%)`)
+        : 'Not taken yet';
+      card.innerHTML = `
+        <div class="act-icon">📝</div>
+        <div class="act-info">
+          <h4>Module Quiz</h4>
+          <p>${qLabel} · ${mod.quiz.length} questions</p>
+        </div>
+        <div class="act-arrow">→</div>
+      `;
+      card.onclick = () => startQuiz(id);
+    } else {
+      card.className = `activity-card ${done ? 'done' : ''}`;
+      card.innerHTML = `
+        <div class="act-icon">${act.emoji}</div>
+        <div class="act-info">
+          <h4>${act.title}</h4>
+          <p>${act.desc}</p>
+        </div>
+        ${done ? '<div class="act-check">✅</div>' : '<div class="act-arrow">→</div>'}
+      `;
+      card.onclick = () => launchActivity(id, act.key);
+    }
+
+    grid.appendChild(card);
+  });
+
+  // Always add quiz at the end
+  const quizCard = document.createElement('div');
+  const quizDone = ms.quizScore !== null && ms.quizScore >= 80;
+  const quizClass = ms.quizScore !== null
+    ? (ms.quizScore >= 80 ? 'done' : 'needs-retry')
+    : '';
+  quizCard.className = `activity-card quiz-activity-card ${quizClass}`;
+  const qLabel = ms.quizScore !== null
+    ? (ms.quizScore >= 80 ? `✅ Aprobado (${ms.quizScore}%)` : `❌ Volver a intentar (${ms.quizScore}% — necesitas 80%)`)
+    : 'Sin intentar · Necesitas 80% para avanzar';
+  quizCard.innerHTML = `
+    <div class="act-icon">📝</div>
+    <div class="act-info">
+      <h4>Module Quiz</h4>
+      <p>${qLabel} · ${mod.quiz.length} preguntas</p>
+    </div>
+    <div class="act-arrow">→</div>
+  `;
+  quizCard.onclick = () => startQuiz(id);
+  grid.appendChild(quizCard);
+}
+
+function launchActivity(moduleId, actKey) {
+  currentModuleId = moduleId;
+  switch(actKey) {
+    case 'lesson':     startLesson(moduleId);     break;
+    case 'flashcards': startFlashcards(moduleId); break;
+    case 'scramble':   startScramble(moduleId);   break;
+    case 'fillgap':    startFillGap(moduleId);    break;
+    case 'speedquiz':  startSpeedQuiz(moduleId);  break;
+    case 'listening':  startListening(moduleId);  break;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+//  LESSON
+// ─────────────────────────────────────────────────────────────
+function startLesson(id) {
+  const mod = MODULES[id];
+  const tag = document.getElementById('lesson-module-tag');
+  tag.textContent = `${mod.emoji} ${mod.title}`;
+  tag.style.color = mod.color;
+  document.getElementById('lesson-title-h').textContent = 'Lesson';
+
+  const content = document.getElementById('lesson-content');
+  content.innerHTML = '';
+
+  mod.lesson.sections.forEach(sec => {
+    const section = document.createElement('div');
+    section.className = 'lesson-section';
+
+    let html = `<h3>${sec.title}</h3>`;
+    html += `<div class="lesson-intro">${sec.content}</div>`;
+
+    if (sec.table) {
+      html += '<div style="overflow-x:auto"><table class="lesson-table"><thead><tr>';
+      sec.table.headers.forEach(h => html += `<th>${h}</th>`);
+      html += '</tr></thead><tbody>';
+      sec.table.rows.forEach(row => {
+        html += '<tr>';
+        row.forEach(cell => html += `<td>${cell.replace(/\n/g, '<br>')}</td>`);
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+    }
+
+    section.innerHTML = html;
+    content.appendChild(section);
+  });
+
+  showScreen('screen-lesson');
+}
+
+function completedLesson() {
+  addXP(currentModuleId, 20);
+  showToast('📖 Lesson completed! +20 XP');
+  goToModule();
+}
+
+// ─────────────────────────────────────────────────────────────
+//  FLASHCARDS
+// ─────────────────────────────────────────────────────────────
+let fcIndex = 0;
+let fcCards = [];
+let fcFlipped = false;
+
+function startFlashcards(id) {
+  fcCards = MODULES[id].flashcards;
+  fcIndex = 0; fcFlipped = false;
+  renderFCard();
+  showScreen('screen-flashcards');
+}
+
+function renderFCard() {
+  const card = fcCards[fcIndex];
+  document.getElementById('fc-counter').textContent = `${fcIndex + 1} / ${fcCards.length}`;
+  document.getElementById('fc-front').innerHTML = `
+    <div class="fc-front-label">WORD / EXPRESSION</div>
+    <div class="fc-word">${card.front}</div>
+    <div class="fc-flip-hint">Tap to reveal →</div>
+  `;
+  document.getElementById('fc-back').innerHTML = `
+    <div class="fc-hint-label">MEANING & PRONUNCIATION</div>
+    <div class="fc-back-text">${card.back}</div>
+  `;
+  document.getElementById('fc-tip').textContent = card.tip ? `💡 Tip: ${card.tip}` : '';
+
+  // Reset flip
+  const inner = document.getElementById('fc-inner');
+  inner.classList.remove('flipped');
+  fcFlipped = false;
+
+  // Progress dots
+  const prog = document.getElementById('fc-progress');
+  prog.innerHTML = fcCards.map((_, i) =>
+    `<div class="fc-progress-dot ${i < fcIndex ? 'seen' : i === fcIndex ? 'current' : ''}"></div>`
+  ).join('');
+
+  document.getElementById('fc-prev').disabled = fcIndex === 0;
+  document.getElementById('fc-next').textContent = fcIndex === fcCards.length - 1 ? 'Finish ✓' : 'Next →';
+}
+
+function flipCard() {
+  fcFlipped = !fcFlipped;
+  document.getElementById('fc-inner').classList.toggle('flipped', fcFlipped);
+}
+
+function fcPrev() {
+  if (fcIndex > 0) { fcIndex--; renderFCard(); }
+}
+
+function fcNext() {
+  if (fcIndex < fcCards.length - 1) {
+    fcIndex++;
+    renderFCard();
+  } else {
+    markGameDone(currentModuleId, 'flashcards', 30);
+    showToast('🃏 Flashcards done! +30 XP');
+    goToModule();
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+//  WORD SCRAMBLE
+// ─────────────────────────────────────────────────────────────
+let wsIndex = 0, wsScore = 0, wsWords = [];
+
+function startScramble(id) {
+  wsWords = MODULES[id].scrambleWords;
+  wsIndex = 0; wsScore = 0;
+  document.getElementById('ws-total').textContent = wsWords.length;
+  renderWS();
+  showScreen('screen-scramble');
+}
+
+function renderWS() {
+  if (wsIndex >= wsWords.length) {
+    markGameDone(currentModuleId, 'scramble', 30);
+    showToast(`🔤 Word Scramble done! Score: ${wsScore}/${wsWords.length} +30 XP`);
+    goToModule();
+    return;
+  }
+  const w = wsWords[wsIndex];
+  document.getElementById('ws-counter').textContent = `${wsIndex + 1} / ${wsWords.length}`;
+  document.getElementById('ws-hint').textContent = `Hint: ${w.hint}`;
+  document.getElementById('ws-score').textContent = wsScore;
+  document.getElementById('ws-feedback').textContent = '';
+  document.getElementById('ws-feedback').className = 'ws-feedback';
+
+  // Scramble letters
+  const letters = w.word.split('').sort(() => Math.random() - 0.5);
+  const lettersEl = document.getElementById('ws-letters');
+  lettersEl.innerHTML = letters.map(l => `<div class="ws-letter">${l}</div>`).join('');
+
+  const input = document.getElementById('ws-input');
+  input.value = '';
+  input.focus();
+  input.onkeydown = (e) => { if (e.key === 'Enter') wsCheck(); };
+}
+
+function wsCheck() {
+  const w = wsWords[wsIndex];
+  const val = document.getElementById('ws-input').value.trim().toUpperCase();
+  const fb = document.getElementById('ws-feedback');
+  if (val === w.word) {
+    fb.textContent = '✅ Correct!';
+    fb.className = 'ws-feedback correct';
+    wsScore++;
+    document.getElementById('ws-score').textContent = wsScore;
+    setTimeout(() => { wsIndex++; renderWS(); }, 900);
+  } else {
+    fb.textContent = `❌ Not quite. The answer is: ${w.word}`;
+    fb.className = 'ws-feedback wrong';
+    setTimeout(() => { wsIndex++; renderWS(); }, 1800);
+  }
+}
+
+function wsSkip() {
+  const w = wsWords[wsIndex];
+  const fb = document.getElementById('ws-feedback');
+  fb.textContent = `Skipped. Answer: ${w.word}`;
+  fb.className = 'ws-feedback wrong';
+  setTimeout(() => { wsIndex++; renderWS(); }, 1200);
+}
+
+// ─────────────────────────────────────────────────────────────
+//  FILL THE GAP
+// ─────────────────────────────────────────────────────────────
+let fgIndex = 0, fgScore = 0, fgItems = [], fgSelected = [];
+
+function startFillGap(id) {
+  fgItems = MODULES[id].fillGap;
+  fgIndex = 0; fgScore = 0;
+  document.getElementById('fg-total').textContent = fgItems.length;
+  renderFG();
+  showScreen('screen-fillgap');
+}
+
+function renderFG() {
+  if (fgIndex >= fgItems.length) {
+    markGameDone(currentModuleId, 'fillgap', 35);
+    showToast(`🎯 Fill the Gap done! Score: ${fgScore}/${fgItems.length} +35 XP`);
+    goToModule();
+    return;
+  }
+  const item = fgItems[fgIndex];
+  fgSelected = [];
+  document.getElementById('fg-counter').textContent = `${fgIndex + 1} / ${fgItems.length}`;
+  document.getElementById('fg-score').textContent = fgScore;
+  document.getElementById('fg-feedback').textContent = '';
+  document.getElementById('fg-feedback').className = 'fg-feedback';
+
+  // Sentence with blanks highlighted
+  const sentEl = document.getElementById('fg-sentence');
+  sentEl.innerHTML = item.sentence.replace(/___/g, '<span class="fg-blank">___</span>');
+
+  // Shuffle words
+  const shuffled = [...item.words].sort(() => Math.random() - 0.5);
+  const bank = document.getElementById('fg-word-bank');
+  bank.innerHTML = shuffled.map(w =>
+    `<button class="fg-word-btn" onclick="fgPick(this, '${w}')">${w}</button>`
+  ).join('');
+
+  // Answer zone
+  const zone = document.getElementById('fg-answer-zone');
+  zone.innerHTML = '<div class="fg-answer-placeholder">Tap words above to build your answer</div>';
+}
+
+function fgPick(btn, word) {
+  if (btn.classList.contains('used')) return;
+  btn.classList.add('used');
+  fgSelected.push(word);
+  renderFGAnswerZone();
+}
+
+function renderFGAnswerZone() {
+  const zone = document.getElementById('fg-answer-zone');
+  if (fgSelected.length === 0) {
+    zone.innerHTML = '<div class="fg-answer-placeholder">Tap words above to build your answer</div>';
+    return;
+  }
+  zone.innerHTML = fgSelected.map((w, i) =>
+    `<div class="fg-placed-word" onclick="fgRemove(${i})">${w}</div>`
+  ).join('');
+}
+
+function fgRemove(i) {
+  const word = fgSelected[i];
+  fgSelected.splice(i, 1);
+  // Un-use the button
+  document.querySelectorAll('.fg-word-btn').forEach(btn => {
+    if (btn.textContent === word && btn.classList.contains('used')) {
+      btn.classList.remove('used');
+      return;
+    }
+  });
+  renderFGAnswerZone();
+}
+
+function fgClear() {
+  fgSelected = [];
+  document.querySelectorAll('.fg-word-btn').forEach(b => b.classList.remove('used'));
+  renderFGAnswerZone();
+}
+
+function fgCheck() {
+  const item = fgItems[fgIndex];
+  const answer = fgSelected.join(' ').toLowerCase().trim();
+  const correct = item.answer.toLowerCase().trim();
+  const fb = document.getElementById('fg-feedback');
+
+  if (answer === correct) {
+    fb.textContent = '✅ Correct!';
+    fb.className = 'fg-feedback correct';
+    fgScore++;
+    document.getElementById('fg-score').textContent = fgScore;
+    setTimeout(() => { fgIndex++; renderFG(); }, 900);
+  } else {
+    fb.textContent = `❌ Correct answer: "${item.answer}"`;
+    fb.className = 'fg-feedback wrong';
+    setTimeout(() => { fgIndex++; renderFG(); }, 2000);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+//  SPEED QUIZ
+// ─────────────────────────────────────────────────────────────
+let sqIndex = 0, sqScore = 0, sqQuestions = [], sqTimer = null, sqTimeLeft = 10, sqAnswered = false;
+
+function startSpeedQuiz(id) {
+  sqQuestions = [...MODULES[id].speedQuiz].sort(() => Math.random() - 0.5);
+  sqIndex = 0; sqScore = 0;
+  document.getElementById('sq-total').textContent = sqQuestions.length;
+  renderSQ();
+  showScreen('screen-speedquiz');
+}
+
+function renderSQ() {
+  if (sqIndex >= sqQuestions.length) {
+    clearInterval(sqTimer);
+    markGameDone(currentModuleId, 'speedquiz', 40);
+    showToast(`⚡ Speed Quiz done! Score: ${sqScore}/${sqQuestions.length} +40 XP`);
+    goToModule();
+    return;
+  }
+  sqAnswered = false;
+  const q = sqQuestions[sqIndex];
+  document.getElementById('sq-qnum').textContent = `Question ${sqIndex + 1} of ${sqQuestions.length}`;
+  document.getElementById('sq-question').textContent = q.q;
+  document.getElementById('sq-score').textContent = sqScore;
+  document.getElementById('sq-feedback').textContent = '';
+  document.getElementById('sq-feedback').className = 'sq-feedback';
+
+  const opts = document.getElementById('sq-options');
+  opts.innerHTML = q.opts.map((o, i) =>
+    `<button class="sq-opt" onclick="sqAnswer(${i})">
+       <span class="sq-opt-ltr">${LETTERS[i]}</span>${o}
+     </button>`
+  ).join('');
+
+  startSQTimer();
+}
+
+function startSQTimer() {
+  clearInterval(sqTimer);
+  sqTimeLeft = 10;
+  updateSQTimer();
+  sqTimer = setInterval(() => {
+    sqTimeLeft--;
+    updateSQTimer();
+    if (sqTimeLeft <= 0) {
+      clearInterval(sqTimer);
+      if (!sqAnswered) {
+        sqAnswer(-1); // time's up
+      }
+    }
+  }, 1000);
+}
+
+function updateSQTimer() {
+  document.getElementById('sq-timer-text').textContent = sqTimeLeft;
+  const pct = (sqTimeLeft / 10) * 100;
+  const bar = document.getElementById('sq-timer-bar');
+  bar.innerHTML = `<div class="speed-timer-fill" style="width:${pct}%;background:${sqTimeLeft <= 3 ? 'var(--red)' : sqTimeLeft <= 6 ? 'var(--gold)' : 'var(--green)'}"></div>`;
+}
+
+function sqAnswer(i) {
+  if (sqAnswered) return;
+  sqAnswered = true;
+  clearInterval(sqTimer);
+  const q = sqQuestions[sqIndex];
+  const opts = document.querySelectorAll('.sq-opt');
+  const fb = document.getElementById('sq-feedback');
+
+  if (i === -1) {
+    fb.textContent = `⏱ Time's up! Answer: ${q.opts[q.correct]}`;
+    fb.className = 'sq-feedback wrong';
+    opts[q.correct].classList.add('correct');
+  } else if (i === q.correct) {
+    opts[i].classList.add('correct');
+    fb.textContent = '✅ Correct!';
+    fb.className = 'sq-feedback correct';
+    sqScore++;
+    document.getElementById('sq-score').textContent = sqScore;
+  } else {
+    opts[i].classList.add('wrong');
+    opts[q.correct].classList.add('correct');
+    fb.textContent = `❌ Correct: ${q.opts[q.correct]}`;
+    fb.className = 'sq-feedback wrong';
+  }
+
+  setTimeout(() => { sqIndex++; renderSQ(); }, 1400);
+}
+
+// ─────────────────────────────────────────────────────────────
+//  LISTENING
+// ─────────────────────────────────────────────────────────────
+let lsIndex = 0, lsScore = 0, lsExercises = [], lsSynth = null;
+
+function startListening(id) {
+  lsExercises = MODULES[id].listeningExercises;
+  lsIndex = 0; lsScore = 0;
+  document.getElementById('ls-total').textContent = lsExercises.length;
+  renderLS();
+  showScreen('screen-listening');
+}
+
+function renderLS() {
+  if (lsIndex >= lsExercises.length) {
+    markGameDone(currentModuleId, 'listening', 30);
+    showToast(`🎧 Listening done! Score: ${lsScore}/${lsExercises.length} +30 XP`);
+    goToModule();
+    return;
+  }
+  const ex = lsExercises[lsIndex];
+  document.getElementById('ls-counter').textContent = `${lsIndex + 1} / ${lsExercises.length}`;
+  document.getElementById('ls-score').textContent = lsScore;
+  document.getElementById('ls-question').textContent = ex.question;
+  document.getElementById('ls-feedback').textContent = '';
+  document.getElementById('ls-feedback').className = 'ls-feedback';
+
+  const playBtn = document.getElementById('ls-play-btn');
+  playBtn.textContent = '▶ Play';
+  playBtn.classList.remove('playing');
+
+  const opts = document.getElementById('ls-options');
+  opts.innerHTML = ex.opts.map((o, i) =>
+    `<button class="ls-opt" onclick="lsAnswer(${i})">
+       <span class="ls-opt-ltr">${LETTERS[i]}</span>${o}
+     </button>`
+  ).join('');
+}
+
+function lsPlay() {
+  const ex = lsExercises[lsIndex];
+  if (!window.speechSynthesis) { showToast('❌ Tu navegador no soporta TTS'); return; }
+
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(ex.text);
+  utt.lang = 'en-US';
+  utt.rate = 0.88;
+  utt.pitch = 1;
+
+  const btn = document.getElementById('ls-play-btn');
+  btn.textContent = '⏸ Playing...';
+  btn.classList.add('playing');
+
+  utt.onend = () => {
+    btn.textContent = '▶ Play Again';
+    btn.classList.remove('playing');
+  };
+  window.speechSynthesis.speak(utt);
+}
+
+function lsAnswer(i) {
+  const ex = lsExercises[lsIndex];
+  const opts = document.querySelectorAll('.ls-opt');
+  const fb = document.getElementById('ls-feedback');
+
+  opts.forEach(o => o.style.pointerEvents = 'none');
+
+  if (i === ex.correct) {
+    opts[i].classList.add('correct');
+    fb.textContent = '✅ Correct!';
+    fb.className = 'ls-feedback correct';
+    lsScore++;
+    document.getElementById('ls-score').textContent = lsScore;
+  } else {
+    opts[i].classList.add('wrong');
+    opts[ex.correct].classList.add('correct');
+    fb.textContent = `❌ Correct: ${ex.opts[ex.correct]}`;
+    fb.className = 'ls-feedback wrong';
+  }
+
+  setTimeout(() => { lsIndex++; renderLS(); }, 1800);
+}
+
+// ─────────────────────────────────────────────────────────────
+//  QUIZ
+// ─────────────────────────────────────────────────────────────
+let quizIndex = 0, quizScore = 0, quizAnswers = [], quizModId = 0, quizSelected = null;
+
+function startQuiz(id) {
+  quizModId = id;
+  quizIndex = 0; quizScore = 0; quizAnswers = []; quizSelected = null;
+  const mod = MODULES[id];
+  document.getElementById('quiz-progress-text').textContent = `1 / ${mod.quiz.length}`;
+  renderQuizQ();
+  showScreen('screen-quiz');
+}
+
+function renderQuizQ() {
+  const mod = MODULES[quizModId];
+  const q = mod.quiz[quizIndex];
+  quizSelected = null;
+
+  document.getElementById('quiz-qnum').textContent = `Question ${quizIndex + 1} of ${mod.quiz.length}`;
+  document.getElementById('quiz-question').textContent = q.q;
+  document.getElementById('quiz-progress-text').textContent = `${quizIndex + 1} / ${mod.quiz.length}`;
+
+  const pct = (quizIndex / mod.quiz.length) * 100;
+  document.getElementById('quiz-progress-bar').style.width = pct + '%';
+
+  const opts = document.getElementById('quiz-options');
+  opts.innerHTML = q.opts.map((o, i) =>
+    `<button class="quiz-opt" onclick="quizPick(${i})">
+       <span class="quiz-opt-ltr">${LETTERS[i]}</span>${o}
+     </button>`
+  ).join('');
+
+  const nextBtn = document.getElementById('quiz-next-btn');
+  nextBtn.disabled = true;
+  nextBtn.textContent = quizIndex === mod.quiz.length - 1 ? 'Finish Quiz →' : 'Next →';
+
+  // Animate card
+  const card = document.getElementById('quiz-card');
+  card.style.animation = 'none'; card.offsetHeight; card.style.animation = 'fadeUp .25s ease';
+}
+
+function quizPick(i) {
+  if (quizSelected !== null) return;
+  quizSelected = i;
+  document.querySelectorAll('.quiz-opt').forEach((b, idx) => {
+    b.classList.toggle('selected', idx === i);
+  });
+  document.getElementById('quiz-next-btn').disabled = false;
+}
+
+function quizNext() {
+  if (quizSelected === null) return;
+  const mod = MODULES[quizModId];
+  const q = mod.quiz[quizIndex];
+  const isOk = quizSelected === q.correct;
+  if (isOk) quizScore++;
+
+  quizAnswers.push({
+    num: quizIndex + 1,
+    q: q.q,
+    userAns: q.opts[quizSelected],
+    correctAns: q.opts[q.correct],
+    isOk
+  });
+
+  quizIndex++;
+  if (quizIndex < mod.quiz.length) {
+    renderQuizQ();
+  } else {
+    finishQuiz();
+  }
+}
+
+async function finishQuiz() {
+  const mod = MODULES[quizModId];
+  const pct = Math.round((quizScore / mod.quiz.length) * 100);
+  const passed = pct >= 80;
+
+  // Save result
+  const ms = progress.moduleStatus[quizModId];
+  ms.quizScore = pct;
+  ms.quizAttempts = (ms.quizAttempts || 0) + 1;
+  if (passed) {
+    ms.completed = true;
+    addXP(quizModId, 100);
+    // Unlock next module
+    if (quizModId + 1 < MODULES.length) {
+      progress.moduleStatus[quizModId + 1].unlocked = true;
+    }
+  }
+  saveProgress(progress);
+
+  // Show result screen
+  showScreen('screen-quiz-result');
+
+  const hero = document.getElementById('qr-hero');
+  hero.className = `qr-hero ${passed ? 'passed' : ''}`;
+  document.getElementById('qr-emoji').textContent = passed ? '🎉' : '📚';
+  document.getElementById('qr-score').textContent = `${quizScore}/${mod.quiz.length}`;
+  document.getElementById('qr-pct').textContent = `${pct}%`;
+  document.getElementById('qr-label').textContent = passed ? '¡APROBADO! NEXT MODULE UNLOCKED' : `NECESITAS 80% · You got ${pct}%`;
+
+  // Actions
+  const actions = document.getElementById('qr-actions');
+  if (passed) {
+    actions.innerHTML = `
+      <button class="btn btn-success" onclick="goToDashboard()">🏠 Dashboard →</button>
+      ${quizModId + 1 < MODULES.length
+        ? `<button class="btn btn-primary" onclick="openModule(${quizModId + 1})">Next Module: ${MODULES[quizModId + 1].emoji} ${MODULES[quizModId + 1].title} →</button>`
+        : '<button class="btn btn-gold" onclick="goToDashboard()">🏆 Course Complete!</button>'}
+    `;
+  } else {
+    actions.innerHTML = `
+      <button class="btn btn-ghost" onclick="goToModule()">📖 Study Again</button>
+      <button class="btn btn-primary" onclick="startQuiz(${quizModId})">🔄 Retry Quiz</button>
+    `;
+  }
+
+  // Review
+  const review = document.getElementById('qr-review');
+  review.innerHTML = `<h3>📋 Answer Review</h3>` + quizAnswers.map(a => `
+    <div class="qr-review-item">
+      <div class="qri-header">
+        <span class="qri-num">Q${a.num}</span>
+        <span class="qri-q">${a.q}</span>
+        <span class="qri-badge ${a.isOk ? 'ok' : 'fail'}">${a.isOk ? '✅' : '❌'}</span>
+      </div>
+      <div class="qri-answers">
+        <div class="qri-row">
+          <span class="qri-lbl lbl-you">TU RESP.</span>
+          <span class="qri-val ${a.isOk ? 'ok' : 'bad'}">${a.userAns}</span>
+        </div>
+        ${!a.isOk ? `<div class="qri-row"><span class="qri-lbl lbl-ok">CORRECTA</span><span class="qri-val ok">${a.correctAns}</span></div>` : ''}
+      </div>
+    </div>
+  `).join('');
+
+  // AI Feedback
+  document.getElementById('qr-ai-text').textContent = '🤖 Analizando tus respuestas...';
+  await getQuizAIFeedback(quizModId, quizScore, mod.quiz.length, pct, passed, quizAnswers);
+}
+
+async function getQuizAIFeedback(modId, score, total, pct, passed, answers) {
+  const mod = MODULES[modId];
+  const detail = answers.map(a =>
+    `Q${a.num}: "${a.q}"\n   Tu respuesta: "${a.userAns}" — ${a.isOk ? '✅' : `❌ Correcta: "${a.correctAns}"`}`
+  ).join('\n');
+
+  const prompt = `Eres un tutor experto de inglés nivel B1 CEFR.
+El estudiante acaba de completar el quiz del módulo "${mod.title}" (${mod.subtitle}).
+
+Resultado: ${score}/${total} = ${pct}% ${passed ? '✅ APROBADO' : '❌ NO APROBADO (necesita 80%)'}
+
+RESPUESTAS:
+${detail}
+
+Escribe feedback EN ESPAÑOL (180-240 palabras) con:
+1. **Resultado:** Menciona el puntaje y si aprobó o no
+2. **Puntos fuertes:** Qué temas demostró entender bien (basado en las correctas)
+3. **Errores clave:** Explica los errores más importantes con la respuesta correcta y POR QUÉ es correcta
+4. **Siguiente paso:** Si aprobó → ánimo para el siguiente módulo. Si no → qué repasar específicamente.
+
+Tono: cálido, preciso, motivador. No uses listas, escribe en párrafos.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.[0]?.text || 'No se pudo generar el análisis.';
+    document.getElementById('qr-ai-text').textContent = text;
+  } catch(e) {
+    document.getElementById('qr-ai-text').textContent = `✅ Score: ${pct}%. ${passed ? '¡Excelente trabajo! Módulo completado.' : 'Repasa el módulo y vuelve a intentarlo.'}`;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+//  XP & PROGRESS HELPERS
+// ─────────────────────────────────────────────────────────────
+function addXP(modId, amount) {
+  const ms = progress.moduleStatus[modId];
+  ms.xp = (ms.xp || 0) + amount;
+  progress.totalXP = (progress.totalXP || 0) + amount;
+  document.getElementById('total-xp').textContent = progress.totalXP;
+  saveProgress(progress);
+}
+
+function markGameDone(modId, gameKey, xpAmount) {
+  const ms = progress.moduleStatus[modId];
+  if (!ms.gamesCompleted[gameKey]) {
+    ms.gamesCompleted[gameKey] = true;
+    addXP(modId, xpAmount);
+  }
+  saveProgress(progress);
+}
+
+// ─────────────────────────────────────────────────────────────
+//  TOAST
+// ─────────────────────────────────────────────────────────────
+let toastTimer = null;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+</script></body></html>
